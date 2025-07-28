@@ -9,6 +9,12 @@ const resources = {
     translation: {
       welcome: "Welcome back!",
       enterEmail: "Enter your email below to sign in to your account",
+      email: "Email",
+      password: "Password",
+      forgotPassword: "Forgot password?",
+      signIn: "Sign in",
+      emailPlaceholder: "Enter your email",
+      passwordPlaceholder: "Enter your password",
       // Add more translations as needed
     },
   },
@@ -16,6 +22,12 @@ const resources = {
     translation: {
       welcome: "مرحبًا بعودتك!",
       enterEmail: "أدخل بريدك الإلكتروني أدناه لتسجيل الدخول إلى حسابك",
+      email: "البريد الإلكتروني",
+      password: "كلمة المرور",
+      forgotPassword: "نسيت كلمة المرور؟",
+      signIn: "تسجيل الدخول",
+      emailPlaceholder: "أدخل بريدك الإلكتروني",
+      passwordPlaceholder: "أدخل كلمة المرور",
       // Add more translations as needed
     },
   },

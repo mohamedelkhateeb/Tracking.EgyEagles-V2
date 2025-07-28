@@ -11,27 +11,27 @@ export default function SigninForm() {
         <div className="mb-4 flex flex-col gap-4">
           <InputField
             name="Email"
-            label="Email"
+            label={t("email")}
             required
             type="text"
-            placeholder="Enter your email"
+            placeholder={t("emailPlaceholder")}
           />
           <InputField
             name="Password"
-            label="Password"
+            label={t("password")}
             required
             type="password"
-            placeholder="Enter your password"
+            placeholder={t("passwordPlaceholder")}
           />
         </div>
         {/* <FormError error={errMsg} /> */}
         <Button size="sm" variant="link" asChild className={"mr-auto mt-0 p-0"}>
-          <Link to="/forgot-password">Forgot password?</Link>
+          <Link to="/forgot-password">{t("forgotPassword")}</Link>
         </Button>
         {/* <LoadingButton content="Sign in" loader={'Signing In...'} style="ml-auto mt-2 w-full" />
          */}
         <Button className="w-full" type="submit">
-          Sign in
+          {t("signIn")}
         </Button>
       </form>
     </>
