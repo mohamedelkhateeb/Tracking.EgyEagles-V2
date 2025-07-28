@@ -1,7 +1,9 @@
 import InputField from "@/components/Fields/input-field";
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 export default function SigninForm() {
+  const { t } = useTranslation();
 
   return (
     <>
