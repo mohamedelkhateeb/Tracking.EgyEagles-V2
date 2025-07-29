@@ -10,5 +10,10 @@ export const AUTH_ROUTES = {
 
 export const PROTECTED_ROUTES = {
   HOME: "/",
+  CUSTOMERS: "/customers",
+  VEHICLES: "/vehicles",
+  USERS: "/users",
+  USER_GROUPS: "/user-groups",
+
 };
 
