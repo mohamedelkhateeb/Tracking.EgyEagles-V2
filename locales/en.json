@@ -6,5 +6,7 @@
   "forgotPassword": "Forgot password?",
   "signIn": "Sign in",
   "emailPlaceholder": "Enter your email",
-  "passwordPlaceholder": "Enter your password"
+  "passwordPlaceholder": "Enter your password",
+  "passwordRequired": "Password is required",
+  "emailRequired": "Email is required"
 }

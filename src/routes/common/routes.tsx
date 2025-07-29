@@ -6,14 +6,8 @@ export const authenticationRoutePaths = [
 ];
 
 export const protectedRoutePaths = [
-  { path: PROTECTED_ROUTES.WORKSPACE, element: <div>Protected Page !</div> },
-  { path: PROTECTED_ROUTES.TASKS, element: <div>Protected Page !</div> },
-  { path: PROTECTED_ROUTES.MEMBERS, element: <div>Protected Page !</div> },
-  { path: PROTECTED_ROUTES.SETTINGS, element: <div>Protected Page !</div> },
-  {
-    path: PROTECTED_ROUTES.PROJECT_DETAILS,
-    element: <div>Protected Page !</div>,
-  },
+  { path: PROTECTED_ROUTES.HOME, element: <div>Protected Page !</div> },
+ 
 ];
 
 export const baseRoutePaths = [

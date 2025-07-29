@@ -20,7 +20,7 @@ function AppRoutes() {
           ))}
         </Route>
 
-        <Route path="/" element={<AuthRoute />}>
+        <Route element={<AuthRoute />}>
           <Route element={<BaseLayout />}>
             {authenticationRoutePaths.map((route) => (
               <Route

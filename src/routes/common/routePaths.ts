@@ -3,17 +3,13 @@ export const isAuthRoute = (pathname: string): boolean => {
 };
 
 export const AUTH_ROUTES = {
-  SIGN_IN: "/",
-  SIGN_UP: "/sign-up",
-  GOOGLE_OAUTH_CALLBACK: "/google/oauth/callback",
+  SIGN_IN: "/login",
+  RESET_PASSWORD: "/reset-password",
+  FORGET_PASSWORD: "/forget-password",
 };
 
 export const PROTECTED_ROUTES = {
-  WORKSPACE: "/workspace/:workspaceId",
-  TASKS: "/workspace/:workspaceId/tasks",
-  MEMBERS: "/workspace/:workspaceId/members",
-  SETTINGS: "/workspace/:workspaceId/settings",
-  PROJECT_DETAILS: "/workspace/:workspaceId/project/:projectId",
+  HOME: "/",
 };
 
 export const BASE_ROUTE = {

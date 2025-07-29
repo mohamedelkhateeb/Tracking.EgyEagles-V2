@@ -6,14 +6,16 @@ import httpService from "@/lib/httpService";
 import { useMutation } from "@tanstack/react-query";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import {  AuthResponseData, Response } from "@/types/api.type";
+import { AuthResponseData, Response } from "@/types/api.type";
 import FormError from "@/components/global/form-error";
+import { SignInSchema } from "@/types/zod/auth.zod";
 
 export default function SigninForm() {
   const navigate = useNavigate();
   const [errMsg, setErrMsg] = useState("");
   const [data, setData] = useState({ Password: "", Email: "" });
   const { t } = useTranslation();
+  const schema = SignInSchema(t);
 
   const { mutate, isPending } = useMutation({
     mutationFn: (data: { Password: string; Email: string }) =>
@@ -22,17 +24,21 @@ export default function SigninForm() {
         data: data,
       }),
   });
-
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    const result = schema.safeParse(data);
+    if (!result.success) {
+      setErrMsg(result.error.errors[0].message);
+      return;
+    }
     mutate(data, {
       onSuccess: (res) => {
-        console.log(res);
+        navigate("/");
       },
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       onError: (error: any) => {
-        setErrMsg(error.response?.data?.message);
+        console.log(error);
+        setErrMsg(error?.response?.data?.Message as string);
       },
     });
   };
