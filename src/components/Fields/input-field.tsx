@@ -1,9 +1,10 @@
-// InputField.tsx
 import React from "react";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "react-i18next";
+import { LuAsterisk } from "react-icons/lu";
 
-interface InputFieldProps {
+interface CustomInputProps {
   name: string;
   label: string;
   placeholder: string;
@@ -18,9 +19,11 @@ interface InputFieldProps {
   min?: string;
   defaultValue?: string | number | readonly string[];
   defaultChecked?: boolean;
+  className?: string;
+  labelStyle?: string;
 }
 
-const InputField: React.FC<InputFieldProps> = ({
+const CustomInput: React.FC<CustomInputProps> = ({
   name,
   label,
   placeholder,
@@ -34,30 +37,37 @@ const InputField: React.FC<InputFieldProps> = ({
   maxLength,
   defaultValue,
   defaultChecked,
+  labelStyle = "text-gray-700 font-medium",
 }) => {
+  const { t } = useTranslation();
   return (
     <div className="flex flex-col gap-2">
-      <p className="  font-medium">
-        {label} {required && <span className="text-sm text-red-500">*</span>}
+      <p className={cn("text-sm font-semibold flex", labelStyle)}>
+        {label}{" "}
+        {required ? (
+          <LuAsterisk className="text-red-500" size={14} />
+        ) : (
+          <span className="text-gray-500 font-medium"> {t("optional")}</span>
+        )}
       </p>
       <Input
         name={name}
-        className={cn(
-          "w-full py-6 rounded-xl outline-none",
-          errors[name] && "border-red-500"
-        )}
         placeholder={placeholder}
         type={type}
-        value={value}
+        value={value || ""}
         onChange={onChange}
         minLength={minLength}
         maxLength={maxLength}
         max={max}
         defaultValue={defaultValue}
         defaultChecked={defaultChecked}
+        className={cn(
+          "w-full py-6 rounded-xl outline-none",
+          errors[name] && "border-red-500"
+        )}
       />
       {errors && (
-        <p className="mr-auto min-w-full text-xs text-red-500">
+        <p className="mr-auto min-w-full text-md text-red-500">
           {errors[name]?.join("")}
         </p>
       )}
@@ -65,4 +75,4 @@ const InputField: React.FC<InputFieldProps> = ({
   );
 };
 
-export default InputField;
+export default CustomInput;

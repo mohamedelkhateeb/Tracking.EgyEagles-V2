@@ -1,5 +1,6 @@
 import InputField from "@/components/Fields/input-field";
 import { Button } from "@/components/ui/button";
+import LoadingButton from "@/components/ui/loading-btn";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 export default function SigninForm() {
@@ -28,11 +29,7 @@ export default function SigninForm() {
         <Button size="sm" variant="link" asChild className={"mr-auto mt-0 p-0"}>
           <Link to="/forgot-password">{t("forgotPassword")}</Link>
         </Button>
-        {/* <LoadingButton content="Sign in" loader={'Signing In...'} style="ml-auto mt-2 w-full" />
-         */}
-        <Button className="w-full" type="submit">
-          {t("signIn")}
-        </Button>
+        <LoadingButton content={t("signIn")} style=" w-full p-6 " />
       </form>
     </>
   );
