@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ... */
 html,
 hody {
   height: 100%;
@@ -10,7 +9,6 @@ hody {
 }
 
 
-/* Custom scrollbar styles */
 .scrollbar {
   overflow-y: auto;
   scrollbar-width: thin; /* Firefox */
@@ -168,18 +166,5 @@ hody {
     --sidebar-border: 240 3.7% 15.9%;
 
     --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-}
-
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-
-  button[data-placeholder] {
-    @apply text-muted-foreground;
   }
 }

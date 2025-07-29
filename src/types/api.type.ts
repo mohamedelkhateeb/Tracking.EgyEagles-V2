@@ -1,3 +1,52 @@
+export interface AuthUser {
+  UserName: string;
+  Id: string;
+  Email: string;
+  CustomerId: string;
+  Role: string;
+  Permission: string[];
+  exp: number;
+  iss: string;
+  aud: string;
+}
+
+
+export type Response<T> = {
+  Success: boolean;
+  StatusCode: number;
+  Message: string;
+  Data: T;
+};
+
+export interface Data<T> {
+  TotalCount: number;
+  PageNumber: number;
+  PageSize: number;
+  TotalPages: number;
+  HasPreviousPage: boolean;
+  HasNextPage: boolean;
+  Data: T[];
+}
+
+
+
+export type AuthResponseData =  {
+  IsAuthenticated: boolean
+  Id: string
+  Email: string
+  Message: string
+  Error: string
+  UserType: number
+  Token: string
+  TokenExpiration: string
+  RefreshToken: string
+  RefreshTokenExpiration: string
+}
+
+
+
+
+
 import {
   PermissionType,
   TaskPriorityEnumType,
