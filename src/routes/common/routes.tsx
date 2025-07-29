@@ -1,4 +1,4 @@
-import SignIn from "@/page/auth/Sign-in";
+import SignIn from "@/page/auth/Sign-in-page";
 import SignUp from "@/page/auth/Sign-up";
 import { AUTH_ROUTES, BASE_ROUTE, PROTECTED_ROUTES } from "./routePaths";
 

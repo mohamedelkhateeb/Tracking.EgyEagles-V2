@@ -1,0 +1,10 @@
+{
+  "welcome": "Welcome back!",
+  "enterEmail": "Enter your email below to sign in to your account",
+  "email": "Email",
+  "password": "Password",
+  "forgotPassword": "Forgot password?",
+  "signIn": "Sign in",
+  "emailPlaceholder": "Enter your email",
+  "passwordPlaceholder": "Enter your password"
+}

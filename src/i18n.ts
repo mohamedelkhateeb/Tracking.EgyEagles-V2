@@ -1,35 +1,17 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
+import ar from "../locales/ar.json";
+import en from "../locales/en.json";
 
 // the translations
 // (tip move them in a JSON file and import them,
 // or even better, manage them separated from your code: https://react.i18next.com/guides/multiple-translation-files)
 const resources = {
   en: {
-    translation: {
-      welcome: "Welcome back!",
-      enterEmail: "Enter your email below to sign in to your account",
-      email: "Email",
-      password: "Password",
-      forgotPassword: "Forgot password?",
-      signIn: "Sign in",
-      emailPlaceholder: "Enter your email",
-      passwordPlaceholder: "Enter your password",
-      // Add more translations as needed
-    },
+    translation: en,
   },
   ar: {
-    translation: {
-      welcome: "مرحبًا بعودتك!",
-      enterEmail: "أدخل بريدك الإلكتروني أدناه لتسجيل الدخول إلى حسابك",
-      email: "البريد الإلكتروني",
-      password: "كلمة المرور",
-      forgotPassword: "نسيت كلمة المرور؟",
-      signIn: "تسجيل الدخول",
-      emailPlaceholder: "أدخل بريدك الإلكتروني",
-      passwordPlaceholder: "أدخل كلمة المرور",
-      // Add more translations as needed
-    },
+    translation: ar,
   },
 };
 
@@ -37,7 +19,7 @@ i18n
   .use(initReactI18next) // passes i18n down to react-i18next
   .init({
     resources,
-    lng: "ar", // language to use, more information here: https://www.i18next.com/overview/configuration-options#languages-namespaces-resources
+    lng: "en", // language to use, more information here: https://www.i18next.com/overview/configuration-options#languages-namespaces-resources
     // you can use the i18n.changeLanguage function to change the language manually: https://www.i18next.com/overview/api#changelanguage
     // if you're using a language detector, do not define the lng option
 
