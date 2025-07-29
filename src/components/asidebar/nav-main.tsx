@@ -1,69 +1,136 @@
-"use client";
-
-import {
-  LucideIcon,
-  Settings,
-  Users,
-  CheckCircle,
-  LayoutDashboard,
-} from "lucide-react";
 import {
   SidebarGroup,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarMenuSub,
+  SidebarMenuSubButton,
+  SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
 import { Link, useLocation } from "react-router-dom";
-import useWorkspaceId from "@/hooks/use-workspace-id";
 
-type ItemType = {
-  title: string;
-  url: string;
-  icon: LucideIcon;
-};
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
+import { ChevronRight } from "lucide-react";
+import { LuLayoutDashboard } from "react-icons/lu";
+import { PiTruckTrailer } from "react-icons/pi";
+import { LiaUsersCogSolid } from "react-icons/lia";
 
 export function NavMain() {
-  const workspaceId = useWorkspaceId();
   const location = useLocation();
 
   const pathname = location.pathname;
 
-  const items: ItemType[] = [
+  const navItems: {
+    title: string;
+    href: string;
+    icon: React.ComponentType<{ className?: string }>;
+    label: string;
+    isActive: boolean;
+    items: { title: string; href: string; icon: string }[];
+  }[] = [
     {
       title: "Dashboard",
-      url: `/workspace/${workspaceId}`,
-      icon: LayoutDashboard,
+      href: "/",
+      icon: LuLayoutDashboard,
+      label: "dashboard",
+      isActive: false,
+      items: [],
     },
     {
-      title: "Tasks",
-      url: `/workspace/${workspaceId}/tasks`,
-      icon: CheckCircle,
+      title: "Customers",
+      href: "/customers",
+      icon: LiaUsersCogSolid,
+      label: "customers",
+      isActive: false,
+      items: [],
     },
     {
-      title: "Members",
-      url: `/workspace/${workspaceId}/members`,
-      icon: Users,
+      title: "Vehicles",
+      href: "/vehicles",
+      icon: PiTruckTrailer,
+      label: "vehicles",
+      isActive: false,
+      items: [],
     },
-
     {
-      title: "Settings",
-      url: `/workspace/${workspaceId}/settings`,
-      icon: Settings,
+      title: "User Management",
+      href: "/users",
+      icon: LiaUsersCogSolid,
+      label: "users",
+      isActive: false,
+      items: [
+        {
+          title: "users",
+          href: "/users",
+          icon: "user",
+        },
+        {
+          title: "Group Users",
+          href: "/users/groups",
+          icon: "user",
+        },
+      ],
     },
   ];
   return (
     <SidebarGroup>
       <SidebarMenu>
-        {items.map((item) => (
-          <SidebarMenuItem key={item.title}>
-            <SidebarMenuButton isActive={item.url === pathname} asChild>
-              <Link to={item.url} className="!text-[15px]">
-                <item.icon />
-                <span>{item.title}</span>
-              </Link>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        ))}
+        {navItems.map((item) => {
+          return item?.items && item?.items?.length > 0 ? (
+            <Collapsible
+              key={item.title}
+              asChild
+              defaultOpen={item.isActive}
+              className="group/collapsible"
+            >
+              <SidebarMenuItem>
+                <CollapsibleTrigger asChild>
+                  <SidebarMenuButton
+                    tooltip={item.title}
+                    isActive={pathname === item.label}
+                  >
+                    <item.icon />
+                    <span>{item.title}</span>
+                    <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                  </SidebarMenuButton>
+                </CollapsibleTrigger>
+                <CollapsibleContent>
+                  <SidebarMenuSub>
+                    {item.items?.map((subItem) => (
+                      <SidebarMenuSubItem key={subItem.title}>
+                        <SidebarMenuSubButton
+                          asChild
+                          isActive={pathname === subItem.href}
+                        >
+                          <Link to={subItem.href}>
+                            <span>{subItem.title}</span>
+                          </Link>
+                        </SidebarMenuSubButton>
+                      </SidebarMenuSubItem>
+                    ))}
+                  </SidebarMenuSub>
+                </CollapsibleContent>
+              </SidebarMenuItem>
+            </Collapsible>
+          ) : (
+            <SidebarMenuItem key={item.title}>
+              <SidebarMenuButton
+                asChild
+                tooltip={item.title}
+                isActive={pathname == item.href}
+              >
+                <Link to={item.href || "/"}>
+                  <item.icon />
+                  <span>{item.title}</span>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          );
+        })}
       </SidebarMenu>
     </SidebarGroup>
   );

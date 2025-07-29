@@ -12,6 +12,3 @@ export const PROTECTED_ROUTES = {
   HOME: "/",
 };
 
-export const BASE_ROUTE = {
-  INVITE_URL: "/invite/workspace/:inviteCode/join",
-};

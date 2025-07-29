@@ -25,7 +25,6 @@ import {
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import Logo from "@/components/logo";
 import LogoutDialog from "./logout-dialog";
-import { WorkspaceSwitcher } from "./workspace-switcher";
 import { NavMain } from "./nav-main";
 import { NavProjects } from "./nav-projects";
 import { Separator } from "../ui/separator";
@@ -48,7 +47,7 @@ const Asidebar = () => {
                 to={`/`}
                 className="hidden md:flex ml-2 items-center gap-2 self-center font-medium"
               >
-                Team Sync.
+                Tracking
               </Link>
             )}
           </div>
@@ -56,7 +55,6 @@ const Asidebar = () => {
         <SidebarContent className=" !mt-0 dark:bg-background">
           <SidebarGroup className="!py-0">
             <SidebarGroupContent>
-              <WorkspaceSwitcher />
               <Separator />
               <NavMain />
               <Separator />
