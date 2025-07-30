@@ -1,4 +1,3 @@
-import React from 'react';
 import InputField from '@/components/Fields/input-field';
 import { useSession } from 'next-auth/react';
 import PhoneNumberInput from '@/components/Fields/phone-number-input';

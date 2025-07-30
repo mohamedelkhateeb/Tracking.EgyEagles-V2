@@ -44,6 +44,26 @@ export type AuthResponseData =  {
 }
 
 
+export type Profile = {
+  Id: string
+  Email: string
+  UserName: string
+  PhoneNumber: string
+  FirstName: string
+  LastName: string
+  CreationBy: string
+  CreationByName: string
+  CreationDate: string
+  InGroup: boolean
+  IsActive: boolean
+  CustomerId: string
+  CustomerName: string
+  UserType: number
+  ImageUrl: string
+  claims: Array<string>
+  VehicleGroups: Array<string>
+}
+
 
 
 

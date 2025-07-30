@@ -32,7 +32,7 @@ axiosInstance.interceptors.response.use(
       // Handle forbidden error
     }
     if (error?.response?.status === 401 || error?.response?.status === 403 || error?.response?.status === 500) {
-      localStorage.removeItem("session");
+      // localStorage.removeItem("session");
       return Promise.resolve({
         data: {
           message: "Unauthorized",

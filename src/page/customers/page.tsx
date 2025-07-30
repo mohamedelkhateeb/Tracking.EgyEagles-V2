@@ -1,13 +1,7 @@
-import CustomerListingPage from "./table/customer-list-page";
+import CustomerListingPage from "./_components/table/customer-list-page";
 
 
-export const metadata = {
-  title: 'Tracking - Customer',
-  description: 'Customer Page For Tracking Solution',
-};
-
-const Page = async () => {
-
+const Page = () => {
   return <CustomerListingPage />;
 };
 

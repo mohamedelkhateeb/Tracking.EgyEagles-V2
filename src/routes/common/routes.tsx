@@ -1,7 +1,7 @@
 import SignIn from "@/page/auth/Sign-in-page";
 import { AUTH_ROUTES, PROTECTED_ROUTES } from "./routePaths";
 import Dashboard from "@/page/dashboard/dashboard-page";
-import CustomerListingPage from "@/page/customers/table/customer-list-page";
+import CustomerListingPage from "@/page/customers/_components/table/customer-list-page";
 
 export const authenticationRoutePaths = [
   { path: AUTH_ROUTES.SIGN_IN, element: <SignIn /> },

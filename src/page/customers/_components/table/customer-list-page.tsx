@@ -28,7 +28,7 @@ export default function CustomerListingPage() {
 
   console.log({ Customers });
 
-  const data: Customer[] = Customers?.Data?.Data || [];
+  const data: Customer[] = [] 
 
   return (
     <PageContainer>

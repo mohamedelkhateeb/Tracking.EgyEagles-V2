@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import CustomerForm from './customer-form';
 import { getCustomer, getPermissionsForCustomer } from '@/services/api/customerService';

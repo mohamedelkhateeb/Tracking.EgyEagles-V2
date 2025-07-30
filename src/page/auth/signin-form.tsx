@@ -33,6 +33,8 @@ export default function SigninForm() {
     }
     mutate(data, {
       onSuccess: (res) => {
+        console.log(res);
+        
         localStorage.setItem("session", JSON.stringify(res?.Data?.Token));
         navigate("/");
       },
