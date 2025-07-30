@@ -1,6 +1,8 @@
 // SelectField.tsx
 import { cn } from "@/lib/utils";
 import React from "react";
+import { useTranslation } from "react-i18next";
+import { LuAsterisk } from "react-icons/lu";
 
 interface Option {
   value: string | number;
@@ -17,6 +19,7 @@ interface SelectFieldProps {
   required?: boolean;
   placeholder: string;
   defaultValue?: string | number;
+  labelStyle?: string;
 }
 
 const SelectField: React.FC<SelectFieldProps> = ({
@@ -27,19 +30,29 @@ const SelectField: React.FC<SelectFieldProps> = ({
   value,
   onChange,
   errors = {},
+  labelStyle = "text-gray-700 font-medium",
   required,
   defaultValue,
 }) => {
+  const { t } = useTranslation();
   return (
     <div className="flex flex-col gap-2">
-      <p className="text-sm font-medium">
-        {label} {required && <span className="text-sm text-red-500">*</span>}
+      <p className={cn(labelStyle, " font-semibold text-md flex")}>
+        {label}
+        {required ? (
+          <LuAsterisk className="text-red-500" size={14} />
+        ) : (
+          <span className="text-gray-500 px-1 font-medium">
+            {" "}
+            {t("optional")}{" "}
+          </span>
+        )}
       </p>
       <select
         name={name}
         onChange={onChange}
         className={cn(
-          "flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm",
+          "flex  w-full items-center justify-between shadow-sm border border-input bg-background px-3 py-2 rounded-xl cursor-pointer",
           errors[name] && "border-red-500"
         )}
         value={value}

@@ -1,13 +1,17 @@
 import InputField from '@/components/Fields/input-field';
+import SelectField from '@/components/Fields/select-field';
+import { useParams } from 'react-router-dom';
+import CustomerSelection from './customer-selection';
+import { useAuthContext } from '@/context/auth-provider';
 
 const CustomerFormInputs = ({ errors, handleChange, data }: { CustomerId?: string; errors: any; handleChange: any; data: any }) => {
-  const { data: session } = useSession();
+  const { customerId,user } = useAuthContext()
   return (
     <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-      <input type="hidden" value={session?.user?.CustomerId} name="UpLevelId" />
+      <input type="hidden" value={customerId} name="UpLevelId" />
       <InputField defaultValue={data?.CustomerName} onChange={handleChange} errors={errors} name="CustomerName" label="Customer Name" placeholder="Enter customer name" required />
       <InputField defaultValue={data?.EmailAddress} onChange={handleChange} errors={errors} name="EmailAddress" label="Email Address" placeholder="Enter email address" type="email" required />
-      <PhoneNumberInput data={data} />
+      {/* <PhoneNumberInput data={data} /> */}
       {useParams().customer == 'new' && (
         <>
           <SelectField
@@ -24,9 +28,9 @@ const CustomerFormInputs = ({ errors, handleChange, data }: { CustomerId?: strin
             required
             defaultValue={data?.CustomerType}
           />
-          {session?.user?.Role == 'SUPER_ADMIN' && (
+          {user?.UserType == 1 && (
             <CustomerSelection
-              CustomerId={session?.user?.Id || ''}
+              CustomerId={user?.Id || ''}
               errors={errors}
               endpoint={'customers/all-distributers'}
               data={data}

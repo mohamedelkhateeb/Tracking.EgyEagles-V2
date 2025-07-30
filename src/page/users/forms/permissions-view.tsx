@@ -59,19 +59,18 @@ export function PermissionsView({
   data: any;
   setData: any;
 }) {
-  const { data: Data }: { Data: Permissions[] } = useQuery({
+  const { data: result }: { Data: Permissions[] } = useQuery({
     queryKey: ["permissions"],
     queryFn: () => httpService.get({ url: "/permissions" }),
   });
 
 
-  console.log(Data);
-  
+  const Data = result?.Data;
   return (
     <Accordion type="single" collapsible className="flex w-full flex-col gap-4">
       <h1 className="text-xl font-bold">User Permissions</h1>
       {Data ? (
-        Data.map((permission, index) => (
+        Data?.map((permission, index) => (
           <AccordionItem
             key={index}
             value={permission.GroupName}

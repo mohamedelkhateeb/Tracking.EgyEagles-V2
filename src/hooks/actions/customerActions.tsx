@@ -18,7 +18,6 @@ export const useCustomerActions = (
         data: data,
       }),
   });
-  const router = useRouter();
   const [errors, setErrors] = useState<any>({});
   const [data, setData] = useState<Customer>({
     ...DEFAULT_CUSTOMER,
@@ -29,7 +28,7 @@ export const useCustomerActions = (
       setErrors((prev: any) => ({ ...prev, [e.target.name]: undefined }));
     }
   };
-  const handleSubmit = async (state: any, formData: FormData) => {
+  const handleSubmit =  (state: any, formData: FormData) => {
     const objectedData = Object.fromEntries(formData);
     console.log(objectedData);
 

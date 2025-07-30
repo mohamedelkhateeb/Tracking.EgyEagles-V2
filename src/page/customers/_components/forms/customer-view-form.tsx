@@ -1,18 +1,21 @@
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import CustomerForm from './customer-form';
-import { getCustomer, getPermissionsForCustomer } from '@/services/api/customerService';
-import { notFound } from 'next/navigation';
-import { useQuery } from '@tanstack/react-query';
-import httpService from '@/lib/httpService';
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import CustomerForm from "./customer-form";
+import { notFound } from "next/navigation";
+import { useQuery } from "@tanstack/react-query";
+import httpService from "@/lib/httpService";
 
-export default async function CustomerViewForm({ customerId }: { customerId: string }) {
+export default function CustomerViewForm({
+  customerId,
+}: {
+  customerId: string;
+}) {
   let customer = null;
-  if (customerId != 'new' && customerId != 'distributer') {
-
-    const {data} = useQuery({
-      queryKey: ['customer', customerId],
+  if (customerId != "new" && customerId != "distributer") {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const { data } = useQuery({
+      queryKey: ["customer", customerId],
       queryFn: () => httpService.get({ url: `/customers/${customerId}` }),
-    })
+    });
     // customer = await getCustomer(customerId);
     // const per = await getPermissionsForCustomer(customerId);
     // console.log({ per });
@@ -23,7 +26,9 @@ export default async function CustomerViewForm({ customerId }: { customerId: str
   return (
     <Card className="mx-auto w-full">
       <CardHeader>
-        <CardTitle className="text-left text-2xl font-bold">Customer Informations</CardTitle>
+        <CardTitle className="text-left text-2xl font-bold">
+          Customer Informations
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <CustomerForm initialData={customer} />

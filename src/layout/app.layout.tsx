@@ -5,7 +5,6 @@ import Asidebar from "@/components/asidebar/asidebar";
 import Header from "@/components/header";
 
 const AppLayout = () => {
-  
   return (
     <AuthProvider>
       <SidebarProvider>
@@ -14,9 +13,7 @@ const AppLayout = () => {
           <div className="w-full">
             <>
               <Header />
-              <div className="px-3 lg:px-20 py-3">
-                <Outlet />
-              </div>
+              <Outlet />
             </>
           </div>
         </SidebarInset>

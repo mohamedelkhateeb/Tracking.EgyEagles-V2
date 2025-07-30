@@ -1,7 +1,7 @@
-import PageContainer from '@/components/layout/page-container';
+import FormCardSkeleton from '@/components/skeleton-loaders/form-card-skeleton';
 import CustomerViewForm from './customer-view-form';
 import { Suspense } from 'react';
-import FormCardSkeleton from '@/components/skeletons/form-card-skeleton';
+import PageContainer from '@/components/global/page-container';
 
 export default async function CustomerViewPage({ params }: { params: { customer: string } }) {
   return (

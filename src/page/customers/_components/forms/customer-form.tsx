@@ -9,9 +9,9 @@ import UserFormInputs from "@/page/users/forms/user-form-inputs";
 export default function CustomerForm({ initialData }: any) {
   const { data, setData, errors, handleChange, handleSubmit } =
     useCustomerActions(initialData, useParams()?.customer);
-  const [state, formAction] = useActionState(handleSubmit, undefined);
+
   return (
-    <form action={formAction} className="space-y-8">
+    <form onSubmit={handleSubmit} className="space-y-8">
       <CustomerFormInputs
         errors={errors}
         handleChange={handleChange}

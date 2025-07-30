@@ -47,7 +47,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
         {required ? (
           <LuAsterisk className="text-red-500" size={14} />
         ) : (
-          <span className="text-gray-500 font-medium"> {t("optional")}</span>
+          <span className="text-gray-500 px-1 font-medium"> {t("optional")}</span>
         )}
       </p>
       <Input
