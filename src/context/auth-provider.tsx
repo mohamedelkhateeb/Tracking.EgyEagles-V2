@@ -3,13 +3,15 @@ import { Profile } from "@/types/api.type";
 import { useQueryClient } from "@tanstack/react-query";
 import { jwtDecode } from "jwt-decode";
 import { createContext, useContext } from "react";
+import { Navigate } from "react-router-dom";
 
 // Define the context shape
 type AuthContextType = {
-  user: Profile & DecodedToken ;
+  user: Profile & DecodedToken;
   token: string;
   isAuth?: boolean;
   refetchAuth: () => void;
+  customerId: string;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -21,11 +23,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const user = useAuth();
   const session = localStorage.getItem("session");
-  const decoded: DecodedToken = jwtDecode(JSON.parse(session || ""));
+  const decoded = session ? jwtDecode(JSON.parse(session || "")) : {};
 
   const refetchAuth = () => {
     queryClient.invalidateQueries({ queryKey: ["authUser"] });
   };
+
+  if (!user) return Navigate({ to: "/login" });
 
   return (
     <AuthContext.Provider
@@ -33,6 +37,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         user: { ...user, ...decoded } as Profile & DecodedToken,
         token: session || "",
         isAuth: !!session && !!user,
+        customerId: user?.CustomerId,
         refetchAuth,
       }}
     >

@@ -9,8 +9,10 @@ import { Customer } from "@/types/customer.model";
 import { useQuery } from "@tanstack/react-query";
 import httpService from "@/lib/httpService";
 import { Link } from "react-router-dom";
+import { useAuthContext } from "@/context/auth-provider";
 
 export default function CustomerListingPage() {
+  const { isAuth, user } = useAuthContext();
   const PageNumber = 1;
   const search = "";
   const PageSize = 10;
@@ -22,13 +24,15 @@ export default function CustomerListingPage() {
     queryKey: ["Customers", queryParams],
     queryFn: () =>
       httpService.get({
-        url: `/customers/companies_individuals`,
+        url: `customers?CustomerId=67c95725cb04cca60605fc69`,
       }),
   });
 
   console.log({ Customers });
 
-  const data: Customer[] = [] 
+  console.log({ user });
+
+  const data: Customer[] = [];
 
   return (
     <PageContainer>

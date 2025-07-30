@@ -10,12 +10,16 @@ export interface AuthUser {
   aud: string;
 }
 
-
 export type Response<T> = {
   Success: boolean;
   StatusCode: number;
   Message: string;
   Data: T;
+};
+
+export type RoleType = {
+  Id: string;
+  Name: string;
 };
 
 export interface Data<T> {
@@ -28,44 +32,38 @@ export interface Data<T> {
   Data: T[];
 }
 
-
-
-export type AuthResponseData =  {
-  IsAuthenticated: boolean
-  Id: string
-  Email: string
-  Message: string
-  Error: string
-  UserType: number
-  Token: string
-  TokenExpiration: string
-  RefreshToken: string
-  RefreshTokenExpiration: string
-}
-
+export type AuthResponseData = {
+  IsAuthenticated: boolean;
+  Id: string;
+  Email: string;
+  Message: string;
+  Error: string;
+  UserType: number;
+  Token: string;
+  TokenExpiration: string;
+  RefreshToken: string;
+  RefreshTokenExpiration: string;
+};
 
 export type Profile = {
-  Id: string
-  Email: string
-  UserName: string
-  PhoneNumber: string
-  FirstName: string
-  LastName: string
-  CreationBy: string
-  CreationByName: string
-  CreationDate: string
-  InGroup: boolean
-  IsActive: boolean
-  CustomerId: string
-  CustomerName: string
-  UserType: number
-  ImageUrl: string
-  claims: Array<string>
-  VehicleGroups: Array<string>
-}
-
-
-
+  Id: string;
+  Email: string;
+  UserName: string;
+  PhoneNumber: string;
+  FirstName: string;
+  LastName: string;
+  CreationBy: string;
+  CreationByName: string;
+  CreationDate: string;
+  InGroup: boolean;
+  IsActive: boolean;
+  CustomerId: string;
+  CustomerName: string;
+  UserType: number;
+  ImageUrl: string;
+  claims: Array<string>;
+  VehicleGroups: Array<string>;
+};
 
 import {
   PermissionType,
@@ -211,10 +209,6 @@ export type PaginationType = {
   limit: number;
 };
 
-export type RoleType = {
-  _id: string;
-  name: string;
-};
 // *********** MEMBER ****************
 
 //******** */ PROJECT TYPES ****************

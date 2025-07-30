@@ -168,3 +168,25 @@ hody {
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
+
+
+.global-loader {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  border: 10px solid;
+  border-color: rgba(37, 35, 35, 0.479) rgba(255, 255, 255, 0.25) rgba(15, 11, 11, 0.774) rgba(255, 255, 255, 0.5);
+  box-sizing: border-box;
+  animation: rotation .5s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+} 

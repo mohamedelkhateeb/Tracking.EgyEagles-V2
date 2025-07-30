@@ -5,6 +5,7 @@ import Asidebar from "@/components/asidebar/asidebar";
 import Header from "@/components/header";
 
 const AppLayout = () => {
+  
   return (
     <AuthProvider>
       <SidebarProvider>

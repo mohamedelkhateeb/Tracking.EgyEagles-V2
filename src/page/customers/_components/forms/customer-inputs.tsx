@@ -1,9 +1,4 @@
 import InputField from '@/components/Fields/input-field';
-import { useSession } from 'next-auth/react';
-import PhoneNumberInput from '@/components/Fields/phone-number-input';
-import { useParams } from 'next/navigation';
-import SelectField from '@/components/Fields/select-field';
-import CustomerSelection from '@/components/common/customer-selection';
 
 const CustomerFormInputs = ({ errors, handleChange, data }: { CustomerId?: string; errors: any; handleChange: any; data: any }) => {
   const { data: session } = useSession();

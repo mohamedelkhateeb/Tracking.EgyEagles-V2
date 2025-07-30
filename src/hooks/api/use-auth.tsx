@@ -1,7 +1,6 @@
 import httpService from "@/lib/httpService";
 import { Profile, Response } from "@/types/api.type";
-import { useQuery } from "@tanstack/react-query";
-import { jwtDecode } from "jwt-decode";
+import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 
 export type DecodedToken = {
   name: string;
@@ -15,13 +14,8 @@ export type DecodedToken = {
 };
 
 const useAuth = () => {
-  const session = localStorage.getItem("session");
-  console.log({ session });
-  const decoded: DecodedToken = jwtDecode(JSON.parse(session || ""));
 
-  console.log({ decoded });
-
-  const query = useQuery<Response<Profile>>({
+  const query = useSuspenseQuery<Response<Profile>>({
     queryKey: ["authUser"],
     queryFn: () =>
       httpService.get({ url: `/users/a337e630-a20e-411a-8ffb-c6f5a9144858` }),
@@ -29,9 +23,8 @@ const useAuth = () => {
     retry: 2,
   });
 
-  console.log(query.data);
 
-  return query?.data?.Data;
+  return query?.data?.Data
 };
 
 export default useAuth;
