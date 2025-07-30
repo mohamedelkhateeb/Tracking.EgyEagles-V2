@@ -9,5 +9,7 @@
   "passwordPlaceholder": "Enter your password",
   "passwordRequired": "Password is required",
   "emailRequired": "Email is required",
-  "optional": "(optional)"
+  "optional": "(optional)",
+  "leftPanelTitle": "Track Your Fleet",
+  "leftPanelText": "Real-time location, alerts, reports, and more."
 }
