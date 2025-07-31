@@ -5,8 +5,15 @@ import { transformForApi } from "@/utils/customer-transformations";
 import { useMutation } from "@tanstack/react-query";
 import httpService from "@/lib/httpService";
 import { CUSTOMER_DEFAULT_STATE } from "@/constant/config/customerDefaultValues";
+import { useTranslation } from "react-i18next";
+import {
+  createAdminSchema,
+  createCustomerSchema,
+  getCustomerSchema,
+} from "@/types/zod/customer.zod";
+import useCustomerFormStore from "@/lib/store/customer-form/use-customer-form";
 
-export const useCustomerActions = (
+export const useCustomerForm = (
   initialData: Customer,
   customerType: string | string[] = "new"
 ) => {
@@ -17,31 +24,40 @@ export const useCustomerActions = (
         data: data,
       }),
   });
-  const [errors, setErrors] = useState<any>({});
-  const [data, setData] = useState<Customer>({
-    ...CUSTOMER_DEFAULT_STATE,
-    ...initialData,
-  });
+  const { CustomerData, UserData, Errors, setErrors } = useCustomerFormStore(
+    (state) => state
+  );
+
   const handleChange = (e: any) => {
-    if (errors[e.target.name]) {
+    if (Errors[e.target.name]) {
       setErrors((prev: any) => ({ ...prev, [e.target.name]: undefined }));
     }
   };
+
+  const { t } = useTranslation();
+
+  const customerSchema = getCustomerSchema(t);
   const handleSubmit = (e: any) => {
     e.preventDefault();
+    const result = customerSchema.safeParse({ ...CustomerData, ...UserData });
 
-    const dataToSubmit = transformForApi(data);
+    if (!result.success) {
+      setErrors(result.error.flatten().fieldErrors);
+      return;
+    }
 
-    mutate(dataToSubmit, {
-      onSuccess: (res) => {
-        console.log(res);
-        console.log(res);
-      },
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      onError: (error: any) => {
-        console.log(error);
-      },
-    });
+    // const dataToSubmit = transformForApi(data);
+
+    // mutate(dataToSubmit, {
+    //   onSuccess: (res) => {
+    //     console.log(res);
+    //     console.log(res);
+    //   },
+    //   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    //   onError: (error: any) => {
+    //     console.log(error);
+    //   },
+    // });
 
     // if (response.Success) {
     //   toast.success('Customer created successfully');
@@ -51,9 +67,7 @@ export const useCustomerActions = (
     // }
   };
   return {
-    data,
-    setData,
-    errors,
+    Errors,
     handleChange,
     setErrors,
     handleSubmit,

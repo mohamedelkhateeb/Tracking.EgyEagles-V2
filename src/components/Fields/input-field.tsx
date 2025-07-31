@@ -40,6 +40,8 @@ const CustomInput: React.FC<CustomInputProps> = ({
   labelStyle = "text-gray-700 font-medium",
 }) => {
   const { t } = useTranslation();
+  // console.log(errors[name]);
+
   return (
     <div className="flex flex-col gap-2">
       <p className={cn(labelStyle, " font-semibold text-md flex")}>
@@ -47,7 +49,10 @@ const CustomInput: React.FC<CustomInputProps> = ({
         {required ? (
           <LuAsterisk className="text-red-500" size={14} />
         ) : (
-          <span className="text-gray-500 px-1 font-medium"> {t("optional")}</span>
+          <span className="text-gray-500 px-1 font-medium">
+            {" "}
+            {t("optional")}
+          </span>
         )}
       </p>
       <Input
