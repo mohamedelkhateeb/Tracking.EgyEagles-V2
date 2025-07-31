@@ -62,7 +62,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
         defaultValue={defaultValue}
         defaultChecked={defaultChecked}
         className={cn(
-          "w-full py-6 rounded-xl text-md outline-none",
+          "w-full py-6  text-md outline-none",
           errors[name] && "border-red-500"
         )}
       />

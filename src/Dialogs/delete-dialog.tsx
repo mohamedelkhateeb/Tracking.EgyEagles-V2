@@ -1,6 +1,5 @@
 import React, { useRef } from 'react';
 import { AlertDialog, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
-import { toast } from '@/hooks/use-toast';
 import LoadingButton from '@/components/ui/loading-btn';
 
 export type Props<T> = {
@@ -19,20 +18,9 @@ export type Props<T> = {
 const GenericDialog = <T extends Record<string, any>>({ asyncAction, submitStyle, data, trigger, btnLoader, submitText = 'Submit', title, description, icon, item }: Props<T>) => {
   const buttonRef = useRef<HTMLButtonElement | null>(null);
   const handleConfirm = async () => {
-    const result = await asyncAction(data.Id);
-    console.log(result);
-    if (result?.Success) {
-      buttonRef.current?.click();
-      toast({
-        title: 'Success!',
-        description: `You have successfully deleted this ${item}!`,
-      });
-    } else {
-      toast({
-        title: 'Failed to Delete',
-        description: result?.Message,
-      });
-    }
+    // const result = await asyncAction(data.Id);
+    // console.log(result);
+
   };
   return (
     <AlertDialog>

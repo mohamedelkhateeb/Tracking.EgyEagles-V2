@@ -23,16 +23,5 @@ export default function CustomerViewForm({
       notFound();
     }
   }
-  return (
-    <Card className="mx-auto w-full">
-      <CardHeader>
-        <CardTitle className="text-left text-2xl font-bold">
-          Customer Informations
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        <CustomerForm initialData={customer} />
-      </CardContent>
-    </Card>
-  );
+  return <CustomerForm initialData={customer} />;
 }

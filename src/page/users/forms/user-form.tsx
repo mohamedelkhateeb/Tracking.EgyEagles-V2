@@ -1,4 +1,3 @@
-'use client';
 import * as React from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import LoadingButton from '@/components/ui/custom-buttons/loading-btn';

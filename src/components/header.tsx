@@ -9,11 +9,10 @@ import {
 } from "@/components/ui/breadcrumb";
 import { Separator } from "./ui/separator";
 import { Link, useLocation } from "react-router-dom";
-import useWorkspaceId from "@/hooks/use-workspace-id";
 
 const Header = () => {
   const location = useLocation();
-  const workspaceId = useWorkspaceId();
+  const workspaceId = "1";
 
   const pathname = location.pathname;
 

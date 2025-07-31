@@ -1,11 +1,10 @@
 import { useState } from "react";
 
-import { useRouter } from "next/navigation";
 import { Customer } from "@/types/customer.model";
-import { DEFAULT_CUSTOMER } from "@/constant/config/customerDefaultValues";
 import { transformForApi } from "@/utils/customer-transformations";
 import { useMutation } from "@tanstack/react-query";
 import httpService from "@/lib/httpService";
+import { CUSTOMER_DEFAULT_STATE } from "@/constant/config/customerDefaultValues";
 
 export const useCustomerActions = (
   initialData: Customer,
@@ -20,7 +19,7 @@ export const useCustomerActions = (
   });
   const [errors, setErrors] = useState<any>({});
   const [data, setData] = useState<Customer>({
-    ...DEFAULT_CUSTOMER,
+    ...CUSTOMER_DEFAULT_STATE,
     ...initialData,
   });
   const handleChange = (e: any) => {

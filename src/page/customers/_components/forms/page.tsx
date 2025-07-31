@@ -12,7 +12,7 @@ export default function CustomerFormPage() {
 
   return (
     <PageContainer scrollable>
-      <div className="flex-1 space-y-4 p-8">
+      <div className="flex-1 space-y-4 p-8 bg-slate-50">
         <Suspense fallback={<FormCardSkeleton />}>
           <CustomerViewForm customerId={params?.customer || "new"} />
         </Suspense>

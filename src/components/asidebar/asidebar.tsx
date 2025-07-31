@@ -26,7 +26,6 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import Logo from "@/components/logo";
 import LogoutDialog from "./logout-dialog";
 import { NavMain } from "./nav-main";
-import { NavProjects } from "./nav-projects";
 import { Separator } from "../ui/separator";
 
 const Asidebar = () => {
@@ -58,7 +57,7 @@ const Asidebar = () => {
               <Separator />
               <NavMain />
               <Separator />
-              <NavProjects />
+              {/* <NavProjects /> */}
             </SidebarGroupContent>
           </SidebarGroup>
         </SidebarContent>
