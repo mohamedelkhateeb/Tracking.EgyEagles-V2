@@ -8,7 +8,7 @@ const axiosInstance = Axios.create({});
 axiosInstance.defaults.timeout = 120000; // Milliseconds
 axiosInstance.interceptors.request.use(
   async function (config) {
-    const token = JSON.parse(localStorage.getItem("session") as string) || null;
+    const token = localStorage.getItem("session") || null;
     if (token) {
       config.headers["Authorization"] = `Bearer ${token}`;
       config.headers["Access-Control-Allow-Credentials"] = true;

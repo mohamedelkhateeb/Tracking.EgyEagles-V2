@@ -1,6 +1,6 @@
 import httpService from "@/lib/httpService";
 import { Profile, Response } from "@/types/api.type";
-import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 
 export type DecodedToken = {
   name: string;
@@ -14,17 +14,15 @@ export type DecodedToken = {
 };
 
 const useAuth = () => {
-
+  const id = localStorage.getItem("id");
   const query = useSuspenseQuery<Response<Profile>>({
     queryKey: ["authUser"],
-    queryFn: () =>
-      httpService.get({ url: `/users/a337e630-a20e-411a-8ffb-c6f5a9144858` }),
+    queryFn: () => httpService.get({ url: `/users/${id}` }),
     staleTime: 0,
     retry: 2,
   });
 
-
-  return query?.data?.Data
+  return query?.data?.Data;
 };
 
 export default useAuth;

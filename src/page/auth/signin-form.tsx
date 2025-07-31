@@ -33,10 +33,10 @@ export default function SigninForm() {
     }
     mutate(data, {
       onSuccess: (res) => {
-        console.log(res);
-        
-        localStorage.setItem("session", JSON.stringify(res?.Data?.Token));
         navigate("/");
+
+        localStorage.setItem("id", res?.Data?.Id);
+        localStorage.setItem("session", res?.Data?.Token);
       },
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       onError: (error: any) => {

@@ -41,13 +41,22 @@ export function NavMain() {
       items: [],
     },
     {
-      title: "Customers",
+      title: "Manage Distributors",
+      href: "/distributors",
+      icon: LiaUsersCogSolid,
+      label: "distributors",
+      isActive: false,
+      items: [],
+    },
+    {
+      title: "Manage Customers",
       href: "/customers",
       icon: LiaUsersCogSolid,
       label: "customers",
       isActive: false,
       items: [],
     },
+
     {
       title: "Vehicles",
       href: "/vehicles",

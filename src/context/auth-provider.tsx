@@ -23,7 +23,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const user = useAuth();
   const session = localStorage.getItem("session");
-  const decoded = session ? jwtDecode(JSON.parse(session || "")) : {};
+  const decoded = session ? jwtDecode(session) : {};
 
   const refetchAuth = () => {
     queryClient.invalidateQueries({ queryKey: ["authUser"] });
