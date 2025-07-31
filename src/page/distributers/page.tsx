@@ -1,4 +1,4 @@
-import CustomerTable from "./_components/table";
+import CustomerTable from "./table";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import { Plus } from "lucide-react";
@@ -12,24 +12,16 @@ import { Link } from "react-router-dom";
 import { useAuthContext } from "@/context/auth-provider";
 import { Response } from "@/types/api.type";
 
-export default function DistributorListingPage() {
-  const { isAuth, user } = useAuthContext();
-  const PageNumber = 1;
-  const search = "";
-  const PageSize = 10;
-  const queryParams = new URLSearchParams({
-    PageNumber: PageNumber.toString(),
-    PageSize: PageSize.toString(),
-  }).toString();
+export default function DistributerListingPage() {
+  const { user } = useAuthContext();
+
   const { data: distributers } = useQuery<Response<Customer[]>>({
-    queryKey: ["distributer", queryParams],
+    queryKey: ["distributers"],
     queryFn: () =>
       httpService.get({
         url: `/customers/distributers`,
       }),
   });
-  console.log({ user });
-
   const data: Customer[] = distributers?.Data || [];
 
   return (
@@ -38,11 +30,24 @@ export default function DistributorListingPage() {
         <div className="flex items-start justify-between">
           <Heading
             title={`Distributers (${data.length})`}
-            description="Find and Manage Your distributer here with advanced capabilities. "
+            description="Find and Manage Your distributers here with advanced capabilities. "
           />
           <div className="flex space-x-2">
+            {/* {session?.user?.Role == "SUPER_ADMIN" && (
+              <Link
+                prefetch={true}
+                href={"/distributers/distributer"}
+                className={cn(
+                  buttonVariants({ variant: "default" }),
+                  "flex gap-2"
+                )}
+              >
+                <Plus className="h-4 w-4" />
+                Distributer
+              </Link>
+            )} */}
             <Link
-              to={"/distributer/new"}
+              to={"/customers/distributer"}
               className={cn(
                 buttonVariants({ variant: "default" }),
                 "flex gap-2 py-6"

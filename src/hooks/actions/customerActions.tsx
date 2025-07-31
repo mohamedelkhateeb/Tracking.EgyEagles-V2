@@ -28,11 +28,10 @@ export const useCustomerActions = (
       setErrors((prev: any) => ({ ...prev, [e.target.name]: undefined }));
     }
   };
-  const handleSubmit =  (state: any, formData: FormData) => {
-    const objectedData = Object.fromEntries(formData);
-    console.log(objectedData);
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
 
-    const dataToSubmit = transformForApi({ ...data, ...objectedData });
+    const dataToSubmit = transformForApi(data);
 
     mutate(dataToSubmit, {
       onSuccess: (res) => {

@@ -1,4 +1,4 @@
-export const DEFAULT_CUSTOMER = {
+export const CUSTOMER_DEFAULT_STATE = {
   Id: '',
   CreatedDate: '',
   CreatedBy: '',
@@ -27,7 +27,7 @@ export const DEFAULT_CUSTOMER = {
   Image: null,
 };
 
-export const DEFAULT_ADMIN = {
+export const USER_DEFAULT_STATE = {
   FirstName: '',
   LastName: '',
   Email: '',
