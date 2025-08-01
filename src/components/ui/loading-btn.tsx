@@ -17,6 +17,7 @@ function LoadingButton({
   isPending?: boolean;
   onClick?: () => void;
 }) {
+  
   return (
     <Button  onClick={onClick} type="submit" className={style} disabled={disabled || isPending}>
       {isPending ? (

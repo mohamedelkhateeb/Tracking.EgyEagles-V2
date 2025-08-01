@@ -11,7 +11,7 @@ export default function CustomerViewForm({
 }: {
   customerId: string;
 }) {
-  let initialData =  null;
+  let initialData = null;
   if (customerId != "new" && customerId != "distributer") {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const { data } = useQuery({
@@ -25,7 +25,7 @@ export default function CustomerViewForm({
       notFound();
     }
   }
- const { handleSubmit } = useCustomerForm(initialData, customerId);
+  const { handleSubmit, isPending } = useCustomerForm(initialData, customerId);
 
   return (
     <form onSubmit={handleSubmit} className="space-y-8">
@@ -46,6 +46,7 @@ export default function CustomerViewForm({
       {/* <PermissionsView data={data} setData={setData} /> */}
       <div className="flex items-center justify-end">
         <LoadingButton
+          isPending={isPending}
           content="Submit"
           loader="Submitting..."
           style="w-full lg:w-1/2 p-6 text-xl"

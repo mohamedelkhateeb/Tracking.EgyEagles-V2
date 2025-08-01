@@ -5,11 +5,16 @@ import { useTranslation } from "react-i18next";
 import { getCustomerSchema } from "@/types/zod/customer.zod";
 import useCustomerFormStore from "@/lib/store/customer-form/use-customer-form";
 import { useAuthContext } from "@/context/auth-provider";
+import { CustomAlert } from "@/components/ui/custom-alert";
 
 export const useCustomerForm = (
-  initialData: Customer,
+  initialData: Customer | null,
   customerType: string | string[] | number
 ) => {
+  const { CustomerData, UserData, Errors, setErrors } = useCustomerFormStore(
+    (state) => state
+  );
+
   const { mutate, isPending } = useMutation({
     mutationFn: (data: any) =>
       httpService.post<any>({
@@ -17,10 +22,6 @@ export const useCustomerForm = (
         data: data,
       }),
   });
-  const { CustomerData, UserData, Errors, setErrors } = useCustomerFormStore(
-    (state) => state
-  );
-
   const { user } = useAuthContext();
 
   const handleChange = (e: any) => {
@@ -54,11 +55,17 @@ export const useCustomerForm = (
       { Customer: CustomerData, Admin: UserData },
       {
         onSuccess: (res) => {
-          console.log(res);
-          console.log(res);
+          CustomAlert({
+            msg: "Customer created successfully",
+            type: "success",
+          });
         },
         onError: (error: any) => {
           console.log(error);
+          CustomAlert({
+            msg: "Something went wrong, please try again later",
+            type: "error",
+          });
         },
       }
     );
@@ -71,10 +78,10 @@ export const useCustomerForm = (
     // }
   };
   return {
+    isPending,
     Errors,
     handleChange,
     setErrors,
     handleSubmit,
-    isPending,
   };
 };
