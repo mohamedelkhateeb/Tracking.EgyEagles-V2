@@ -11,8 +11,6 @@ export default function CustomerForm({
   initialData: any;
   customer: string;
 }) {
-
-  console.log({customer});
   
   const { handleSubmit } = useCustomerForm(initialData, customer);
 

@@ -4,15 +4,14 @@ import httpService from "@/lib/httpService";
 import { useTranslation } from "react-i18next";
 import { getCustomerSchema } from "@/types/zod/customer.zod";
 import useCustomerFormStore from "@/lib/store/customer-form/use-customer-form";
+import { useAuthContext } from "@/context/auth-provider";
 
 export const useCustomerForm = (
   initialData: Customer,
   customerType: string | string[]
 ) => {
-  console.log({ customerType });
-
   const { mutate } = useMutation({
-    mutationFn: (data: Customer) =>
+    mutationFn: (data: any) =>
       httpService.post<any>({
         url: `/customers/${customerType}`,
         data: data,
@@ -21,6 +20,8 @@ export const useCustomerForm = (
   const { CustomerData, UserData, Errors, setErrors } = useCustomerFormStore(
     (state) => state
   );
+
+  const { user } = useAuthContext();
 
   const handleChange = (e: any) => {
     if (Errors[e.target.name]) {
@@ -32,26 +33,34 @@ export const useCustomerForm = (
 
   const customerSchema = getCustomerSchema(t);
   const handleSubmit = (e: any) => {
+    CustomerData.PhoneNumber = "+966" + CustomerData.PhoneNumber;
+    if (customerType === "distributer") {
+      CustomerData.CustomerType = 2;
+      CustomerData.UpLevelId = user.CustomerId;
+    }
     e.preventDefault();
     const result = customerSchema.safeParse({ ...CustomerData, ...UserData });
 
-    if (!result.success) {
-      setErrors(result.error.flatten().fieldErrors);
-      return;
-    }
+    // if (!result.success) {
+    //   setErrors(result.error.flatten().fieldErrors);
+    //   return;
+    // }
 
     // const dataToSubmit = transformForApi(data);
 
-    // mutate(dataToSubmit, {
-    //   onSuccess: (res) => {
-    //     console.log(res);
-    //     console.log(res);
-    //   },
-    //   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    //   onError: (error: any) => {
-    //     console.log(error);
-    //   },
-    // });
+    mutate(
+      { Customer: CustomerData, Admin: UserData },
+      {
+        onSuccess: (res) => {
+          console.log(res);
+          console.log(res);
+        },
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        onError: (error: any) => {
+          console.log(error);
+        },
+      }
+    );
 
     // if (response.Success) {
     //   toast.success('Customer created successfully');

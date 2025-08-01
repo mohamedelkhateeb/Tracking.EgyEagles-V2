@@ -34,7 +34,7 @@ const UserFormInputs = ({
     <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
       <input type="hidden" name="CustomerId" value={customerId} />
       <InputField
-        defaultValue={UserData?.FirstName}
+        value={UserData?.FirstName}
         onChange={handleChange}
         errors={Errors}
         name="FirstName"
@@ -44,7 +44,7 @@ const UserFormInputs = ({
         required
       />
       <InputField
-        defaultValue={UserData?.LastName}
+        value={UserData?.LastName}
         onChange={handleChange}
         errors={Errors}
         name="LastName"
@@ -54,7 +54,7 @@ const UserFormInputs = ({
         required
       />
       <InputField
-        defaultValue={UserData?.Email}
+        value={UserData?.Email}
         onChange={handleChange}
         errors={Errors}
         name="Email"
@@ -100,7 +100,7 @@ const UserFormInputs = ({
               +966
             </span>
             <Input
-              defaultValue={UserData?.PhoneNumber || ""}
+              value={UserData?.PhoneNumber || ""}
               className={cn(
                 "border-0 text-sm shadow-none outline-none focus-visible:ring-0 focus-visible:ring-offset-0 xl:py-7"
               )}
@@ -120,6 +120,7 @@ const UserFormInputs = ({
         placeholder="**********"
         type="password"
         required
+        value={UserData?.Password}
       />
     </div>
   );
