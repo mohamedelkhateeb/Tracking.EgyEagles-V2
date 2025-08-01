@@ -38,6 +38,7 @@ import {
   ChevronLeftIcon,
   ChevronRightIcon,
   Columns,
+  Loader,
 } from "lucide-react";
 import { parseAsInteger, useQueryState } from "nuqs";
 import { Input } from "../ui/input";
@@ -47,9 +48,11 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
   totalItems: number;
   pageSizeOptions?: number[];
+  isPending?: boolean;
 }
 
 export function DataTable<TData, TValue>({
+  isPending,
   columns,
   data,
   totalItems,
@@ -99,48 +102,48 @@ export function DataTable<TData, TValue>({
 
   return (
     <div className="space-y-4">
-        <div className="flex items-center justify-between p-2 mb-2">
-          <Input
-            placeholder="Filter emails..."
-            value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
-            onChange={(event) =>
-              table.getColumn("email")?.setFilterValue(event.target.value)
-            }
-            className="max-w-sm py-5 text-lg"
-          />
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="lg">
-                <Columns />
-                <span className="hidden lg:inline ">Customize Columns</span>
-                <span className="lg:hidden">Columns</span>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-56">
-              {table
-                .getAllColumns()
-                .filter(
-                  (column) =>
-                    typeof column.accessorFn !== "undefined" &&
-                    column.getCanHide()
-                )
-                .map((column) => {
-                  return (
-                    <DropdownMenuCheckboxItem
-                      key={column.id}
-                      className="capitalize"
-                      checked={column.getIsVisible()}
-                      onCheckedChange={(value) =>
-                        column.toggleVisibility(!!value)
-                      }
-                    >
-                      {column.id}
-                    </DropdownMenuCheckboxItem>
-                  );
-                })}
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
+      <div className="flex items-center justify-between p-2 mb-2">
+        <Input
+          placeholder="Filter emails..."
+          value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
+          onChange={(event) =>
+            table.getColumn("email")?.setFilterValue(event.target.value)
+          }
+          className="max-w-sm py-5 text-lg"
+        />
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline" size="lg">
+              <Columns />
+              <span className="hidden lg:inline ">Customize Columns</span>
+              <span className="lg:hidden">Columns</span>
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="w-56">
+            {table
+              .getAllColumns()
+              .filter(
+                (column) =>
+                  typeof column.accessorFn !== "undefined" &&
+                  column.getCanHide()
+              )
+              .map((column) => {
+                return (
+                  <DropdownMenuCheckboxItem
+                    key={column.id}
+                    className="capitalize"
+                    checked={column.getIsVisible()}
+                    onCheckedChange={(value) =>
+                      column.toggleVisibility(!!value)
+                    }
+                  >
+                    {column.id}
+                  </DropdownMenuCheckboxItem>
+                );
+              })}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
       <ScrollArea className="h-[calc(80vh-220px)] border rounded-xl md:h-[calc(80dvh-200px)]">
         <Table className="relative ">
           <TableHeader className="bg-muted sticky top-0 z-10 ">
@@ -163,7 +166,18 @@ export function DataTable<TData, TValue>({
             ))}
           </TableHeader>
           <TableBody>
-            {table.getRowModel().rows?.length ? (
+            {isPending ? (
+              <TableRow>
+                <TableCell
+                  colSpan={columns.length}
+                  className="h-24 text-center"
+                >
+                  <div className="flex justify-center items-center h-[50vh]">
+                    <Loader color="#6b7280" className="h-10 w-10 animate-spin text-xl" />
+                  </div>{" "}
+                </TableCell>
+              </TableRow>
+            ) : table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   className={cn("text-xs lg:text-sm")}
