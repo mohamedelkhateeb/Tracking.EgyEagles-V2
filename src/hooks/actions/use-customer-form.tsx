@@ -1,26 +1,20 @@
-import { useState } from "react";
-
 import { Customer } from "@/types/customer.model";
-import { transformForApi } from "@/utils/customer-transformations";
 import { useMutation } from "@tanstack/react-query";
 import httpService from "@/lib/httpService";
-import { CUSTOMER_DEFAULT_STATE } from "@/constant/config/customerDefaultValues";
 import { useTranslation } from "react-i18next";
-import {
-  createAdminSchema,
-  createCustomerSchema,
-  getCustomerSchema,
-} from "@/types/zod/customer.zod";
+import { getCustomerSchema } from "@/types/zod/customer.zod";
 import useCustomerFormStore from "@/lib/store/customer-form/use-customer-form";
 
 export const useCustomerForm = (
   initialData: Customer,
-  customerType: string | string[] = "new"
+  customerType: string | string[]
 ) => {
+  console.log({ customerType });
+
   const { mutate } = useMutation({
-    mutationFn: (data: any) =>
+    mutationFn: (data: Customer) =>
       httpService.post<any>({
-        url: "/customers",
+        url: `/customers/${customerType}`,
         data: data,
       }),
   });

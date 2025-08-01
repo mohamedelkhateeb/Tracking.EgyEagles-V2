@@ -1,19 +1,20 @@
 import CustomerFormInputs from "./customer-inputs";
-import { useParams } from "next/navigation";
 import LoadingButton from "@/components/ui/loading-btn";
-import { PermissionsView } from "@/page/users/forms/permissions-view";
 import UserFormInputs from "@/page/users/forms/user-form-inputs";
 import { Card } from "@/components/ui/card";
 import { useCustomerForm } from "@/hooks/actions/use-customer-form";
 
-export default function CustomerForm({ initialData }: any) {
-  const { Errors, handleChange, handleSubmit } = useCustomerForm(
-    initialData,
-    useParams()?.customer
-  );
+export default function CustomerForm({
+  initialData,
+  customer,
+}: {
+  initialData: any;
+  customer: string;
+}) {
 
-  // console.log({ Errors });
+  console.log({customer});
   
+  const { handleSubmit } = useCustomerForm(initialData, customer);
 
   return (
     <form onSubmit={handleSubmit} className="space-y-8">
@@ -23,19 +24,22 @@ export default function CustomerForm({ initialData }: any) {
         </h1>
         <CustomerFormInputs />
       </Card>{" "}
-      {/* {!initialData && (
+      {!initialData && (
         <Card className="p-5">
-        <h1 className="text-xl font-bold border-b pb-2 mb-9">Admin Informations</h1>
-          <UserFormInputs
-            errors={errors}
-            handleChange={handleChange}
-            data={data}
-            unRenderedFields={["PhoneNumber"]}
-          />
+          <h1 className="text-xl font-bold border-b pb-2 mb-9">
+            Admin Informations
+          </h1>
+          <UserFormInputs unRenderedFields={["PhoneNumber"]} />
         </Card>
-      )} */}
+      )}
       {/* <PermissionsView data={data} setData={setData} /> */}
-      <LoadingButton content="Submit" loader="Submitting..." />
+      <div className="flex items-center justify-end">
+        <LoadingButton
+          content="Submit"
+          loader="Submitting..."
+          style="w-full lg:w-1/2 p-6 text-xl"
+        />
+      </div>{" "}
     </form>
   );
 }

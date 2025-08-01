@@ -12,7 +12,7 @@ export const PROTECTED_ROUTES = {
   HOME: "/",
   CUSTOMERS: "/customers",
   DISTRIBUTORS: "/distributors",
-  DISTRIBUTOR_FORM: "/distributor/:distributer",
+  DISTRIBUTOR_FORM: "/distributor/:customer",
   CUSTOMER_FORM: "/customers/:customer",
   VEHICLES: "/vehicles",
   USERS: "/users",

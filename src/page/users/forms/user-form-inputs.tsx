@@ -5,30 +5,38 @@ import { Input } from "@/components/ui/input";
 import SelectField from "@/components/Fields/select-field";
 import { useAuthContext } from "@/context/auth-provider";
 import { RoleType } from "@/types/api.type";
+import useCustomerFormStore from "@/lib/store/customer-form/use-customer-form";
 
 const UserFormInputs = ({
   roles,
   userId,
-  errors,
-  handleChange,
-  data,
   unRenderedFields,
 }: {
   roles?: RoleType[];
   userId?: string;
-  errors: any;
-  handleChange: any;
-  data: any;
   unRenderedFields?: string[];
 }) => {
-  const { customerId } = useAuthContext();
+  const { customerId, user } = useAuthContext();
+  const { Errors, setErrors, UserData, setUserData } = useCustomerFormStore(
+    (state) => state
+  );
+
+  const handleChange = (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    setUserData({ ...UserData, [e.target.name]: e.target.value });
+    setErrors({ ...Errors, [e.target.name]: undefined });
+  };
+
   return (
     <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
       <input type="hidden" name="CustomerId" value={customerId} />
       <InputField
-        defaultValue={data?.FirstName}
+        defaultValue={UserData?.FirstName}
         onChange={handleChange}
-        errors={errors}
+        errors={Errors}
         name="FirstName"
         label="First Name"
         placeholder="Enter your first name"
@@ -36,9 +44,9 @@ const UserFormInputs = ({
         required
       />
       <InputField
-        defaultValue={data?.LastName}
+        defaultValue={UserData?.LastName}
         onChange={handleChange}
-        errors={errors}
+        errors={Errors}
         name="LastName"
         label="Last Name"
         placeholder="Enter your last name"
@@ -46,9 +54,9 @@ const UserFormInputs = ({
         required
       />
       <InputField
-        defaultValue={data?.Email}
+        defaultValue={UserData?.Email}
         onChange={handleChange}
-        errors={errors}
+        errors={Errors}
         name="Email"
         label="Email"
         placeholder="Enter your email"
@@ -57,7 +65,7 @@ const UserFormInputs = ({
       />
       {userId == "new" && (
         <SelectField
-          errors={errors}
+          errors={Errors}
           name="RoleId"
           label="Role"
           onChange={handleChange}
@@ -92,7 +100,7 @@ const UserFormInputs = ({
               +966
             </span>
             <Input
-              defaultValue={data?.PhoneNumber}
+              defaultValue={UserData?.PhoneNumber || ""}
               className={cn(
                 "border-0 text-sm shadow-none outline-none focus-visible:ring-0 focus-visible:ring-offset-0 xl:py-7"
               )}
@@ -106,7 +114,7 @@ const UserFormInputs = ({
       )}
       <InputField
         onChange={handleChange}
-        errors={errors}
+        errors={Errors}
         name="Password"
         label="Password"
         placeholder="**********"

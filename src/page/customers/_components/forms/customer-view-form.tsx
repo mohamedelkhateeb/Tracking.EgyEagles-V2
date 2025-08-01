@@ -1,4 +1,3 @@
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import CustomerForm from "./customer-form";
 import { notFound } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
@@ -23,5 +22,5 @@ export default function CustomerViewForm({
       notFound();
     }
   }
-  return <CustomerForm initialData={customer} />;
+  return <CustomerForm initialData={customer}  customer={customerId}/>;
 }
