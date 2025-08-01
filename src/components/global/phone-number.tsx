@@ -15,12 +15,15 @@ const PhoneNumber = ({
   error?: string;
 }) => {
   const { t } = useTranslation();
-  const [errMsg, setErrMsg] = useState<string | undefined>(error);
+  const [errMsg, setErrMsg] = useState<string>(error || "");
+
   return (
     <>
       <div
         dir="ltr"
-        className={` flex items-center rounded-lg border border-borderColor bg-white px-6 py-3 shadow-sm ${errMsg ? "border-red-500" : ""}`}
+        className={` flex items-center rounded-lg border border-borderColor bg-white px-6 py-3 shadow-sm ${
+          errMsg ? "border-red-500" : ""
+        }`}
       >
         <span className="flex items-center gap-2 border-r-2 pr-2 text-lg xl:text-xl">
           <Saudi />
@@ -31,14 +34,16 @@ const PhoneNumber = ({
           className={cn(
             "border-0 text-lg shadow-none outline-none focus-visible:ring-0 focus-visible:ring-offset-0 lg:text-lg"
           )}
-          name="phone"
+          name="PhoneNumber"
           type="number"
           placeholder={" 50 000 0000"}
           onInput={(e) => handlePhoneInputChange(e, t, setErrMsg)}
           onChange={onChange}
         />
       </div>
-      {errMsg && <p className="text-md text-red-500">{errMsg}</p>}
+      {(errMsg || error) && (
+        <p className="text-md text-red-500">{errMsg || error}</p>
+      )}
     </>
   );
 };

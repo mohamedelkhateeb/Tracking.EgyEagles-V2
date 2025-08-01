@@ -57,7 +57,6 @@ export const useCustomerForm = (
           console.log(res);
           console.log(res);
         },
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         onError: (error: any) => {
           console.log(error);
         },

@@ -7,10 +7,17 @@ export const getCustomerSchema = (t: (key: string) => string) =>
       .min(3, { message: t("errors.customerNameMin") })
       .max(50, { message: t("errors.customerNameMax") }),
     EmailAddress: z.string().email({ message: t("errors.emailInvalid") }),
-    PhoneNumber: z.string().min(1, { message: t("errors.phoneRequired") }),
-    CustomerType: z
-      .number({ invalid_type_error: t("errors.customerTypeRequired") }),
-      
+    PhoneNumber: z
+      .string()
+      .min(1, { message: t("errors.phoneRequired") })
+      .transform((val) => {
+        const cleaned = val.replace(/^(\+?966|0)/, "");
+        return `+966${cleaned}`;
+      }),
+    CustomerType: z.number({
+      invalid_type_error: t("errors.customerTypeRequired"),
+    }),
+
     City: z.string().min(1, { message: t("errors.cityRequired") }),
     Address: z.string().min(1, { message: t("errors.addressRequired") }),
     ZipCode: z.string().min(1, { message: t("errors.zipCodeRequired") }),
