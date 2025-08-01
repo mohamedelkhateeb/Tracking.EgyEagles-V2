@@ -16,42 +16,35 @@
     "customerNameRequired": "Customer name is required",
     "customerNameMin": "Customer name must be at least 3 characters",
     "customerNameMax": "Customer name must not exceed 50 characters",
-
     "emailRequired": "Email address is required",
     "emailInvalid": "Invalid email address",
-
     "phoneRequired": "Phone number is required",
     "phoneInvalid": "Phone number must start with +9665 followed by 8 digits",
-
     "customerTypeRequired": "Customer type is required",
     "customerTypeInvalid": "Invalid customer type",
-
     "cityRequired": "City is required",
     "zipCodeRequired": "Zip code is required",
     "countryRequired": "Country is required",
-
     "identityRequired": "Identity number is required",
     "identityLength": "Identity number must be 10 digits",
     "identityPrefix": "Identity number must start with 10 or 700",
-
     "upLevelRequired": "Up level is required",
-
     "firstNameRequired": "First name is required",
     "firstNameMin": "First name can't be less than 3 characters",
     "firstNameMax": "First name can't be longer than 25 characters",
-
     "lastNameRequired": "Last name is required",
     "lastNameMin": "Last name can't be less than 3 characters",
     "lastNameMax": "Last name can't be longer than 25 characters",
-
     "adminEmailRequired": "E-mail is required",
     "adminEmailInvalid": "E-mail is not valid",
-
     "passwordRequired": "Password is required",
     "passwordMin": "Password can't be less than 6 characters",
     "passwordUppercase": "Password must contain at least one uppercase letter",
     "passwordLowercase": "Password must contain at least one lowercase letter",
     "passwordDigit": "Password must contain at least one digit",
     "passwordSpecial": "Password must contain at least one special character"
-  }
+  },
+  "startsWith05": "The mobile number must be 10 digits if it starts with '05'.",
+  "startsWith5": "The mobile number must be 9 digits if it starts with '5'.",
+  "invalid": "Invalid mobile number. It must start with '05' or '5'."
 }

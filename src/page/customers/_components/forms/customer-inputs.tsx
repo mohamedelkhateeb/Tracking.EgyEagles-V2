@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import CustomerSelection from "./customer-selection";
 import { useAuthContext } from "@/context/auth-provider";
 import useCustomerFormStore from "@/lib/store/customer-form/use-customer-form";
+import PhoneNumber from "@/components/global/phone-number";
+import { LuAsterisk } from "react-icons/lu";
 
 const CustomerFormInputs = () => {
   const { customerId, user } = useAuthContext();
@@ -19,9 +21,8 @@ const CustomerFormInputs = () => {
     setErrors({ ...Errors, [e.target.name]: undefined });
   };
 
-
   console.log(Errors);
-  
+  console.log(CustomerData);
 
   return (
     <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -45,7 +46,12 @@ const CustomerFormInputs = () => {
         type="email"
         required
       />
-      {/* <PhoneNumberInput data={data} /> */}
+      <div className="flex flex-col gap-1">
+        <p className=" flex  font-semibold text-lg">
+          Phone Number <LuAsterisk className="text-red-500" size={14} />
+        </p>
+        <PhoneNumber value={CustomerData?.PhoneNumber}  onChange={(e)=> setCustomerData({...CustomerData, PhoneNumber: e.target.value})}/>
+      </div>
       {useParams().customer == "new" && (
         <>
           <SelectField

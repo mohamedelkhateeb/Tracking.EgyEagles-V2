@@ -7,8 +7,6 @@ import { useParams } from "react-router-dom";
 export default function CustomerFormPage() {
   const params = useParams();
 
-  console.log({ params });
-  
 
   return (
     <PageContainer scrollable>

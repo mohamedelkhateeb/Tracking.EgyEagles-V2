@@ -44,7 +44,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
 
   return (
     <div className="flex flex-col gap-2">
-      <p className={cn(labelStyle, " font-semibold text-md flex")}>
+      <p className={cn(labelStyle, " font-semibold text-lg flex")}>
         {label}{" "}
         {required ? (
           <LuAsterisk className="text-red-500" size={14} />
@@ -67,7 +67,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
         defaultValue={defaultValue}
         defaultChecked={defaultChecked}
         className={cn(
-          "w-full py-6  text-md outline-none",
+          "w-full py-7 text-lg outline-none",
           errors[name] && "border-red-500"
         )}
       />
