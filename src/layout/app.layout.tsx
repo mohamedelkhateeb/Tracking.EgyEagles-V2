@@ -13,7 +13,9 @@ const AppLayout = () => {
           <div className="w-full">
             <>
               <Header />
-              <Outlet />
+              <div className="p-6">
+                <Outlet />
+              </div>{" "}
             </>
           </div>
         </SidebarInset>

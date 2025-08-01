@@ -2,9 +2,9 @@
 import { Checkbox } from '@/components/ui/checkbox';
 import { ColumnDef } from '@tanstack/react-table';
 import { CellAction } from './cell-action';
-import { User } from '@/types/models/user.model';
+import { CustomerData } from '@/lib/store/customer-form/customer-slice';
 
-export const columns: ColumnDef<User>[] = [
+export const columns: ColumnDef<CustomerData>[] = [
   {
     id: 'select',
     header: ({ table }) => <Checkbox checked={table.getIsAllPageRowsSelected()} onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)} aria-label="Select all" />,
@@ -13,19 +13,19 @@ export const columns: ColumnDef<User>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: 'CustomerName',
+    accessorFn: (row) => row?.CustomerName,
     header: 'NAME',
   },
   {
-    accessorKey: 'EmailAddress',
+    accessorFn: (row) => row?.EmailAddress,
     header: 'EMAIL',
   },
   {
-    accessorKey: 'IdentityNumber',
+    accessorFn: (row) => row?.IdentityNumber,
     header: 'IDENTITY NUMBER',
   },
   {
-    accessorKey: 'Country',
+    accessorFn: (row) => row?.Country,
     header: 'COUNTRY',
   },
   {
