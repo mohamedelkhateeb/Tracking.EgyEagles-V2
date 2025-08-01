@@ -6,23 +6,27 @@ import LoadingButton from "@/components/ui/loading-btn";
 import UserFormInputs from "@/page/users/forms/user-form-inputs";
 import { Card } from "@/components/ui/card";
 import { useCustomerForm } from "@/hooks/actions/use-customer-form";
+import { Response } from "@/types/api.type";
+import { Customer } from "@/types/customer.model";
+import { CustomerData } from "@/lib/store/customer-form/customer-slice";
+import { useNavigate } from "react-router-dom";
 export default function CustomerViewForm({
   customerId,
 }: {
   customerId: string;
 }) {
+  const navigate = useNavigate();
   let initialData = null;
   if (customerId != "new" && customerId != "distributer") {
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    const { data } = useQuery({
+    const { data } = useQuery<Response<CustomerData>>({
       queryKey: ["customer", customerId],
       queryFn: () => httpService.get({ url: `/customers/${customerId}` }),
     });
-    // customer = await getCustomer(customerId);
-    // const per = await getPermissionsForCustomer(customerId);
-    // console.log({ per });
-    if (!initialData) {
-      notFound();
+    if (data) {
+      initialData = data?.Data;
+    } else {
+      navigate("/distributers");
     }
   }
   const { handleSubmit, isPending } = useCustomerForm(initialData, customerId);

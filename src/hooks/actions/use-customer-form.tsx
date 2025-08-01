@@ -6,14 +6,22 @@ import { getCustomerSchema } from "@/types/zod/customer.zod";
 import useCustomerFormStore from "@/lib/store/customer-form/use-customer-form";
 import { useAuthContext } from "@/context/auth-provider";
 import { CustomAlert } from "@/components/ui/custom-alert";
+import { useEffect } from "react";
+import { CustomerData } from "@/lib/store/customer-form/customer-slice";
 
 export const useCustomerForm = (
-  initialData: Customer | null,
+  initialData: CustomerData | null,
   customerType: string | string[] | number
 ) => {
-  const { CustomerData, UserData, Errors, setErrors } = useCustomerFormStore(
-    (state) => state
-  );
+  const { CustomerData, UserData, Errors, setErrors, setCustomerData } =
+    useCustomerFormStore((state) => state);
+
+  useEffect(() => {
+    if (initialData) {
+      setErrors({} as any);
+      setCustomerData(initialData);
+    }
+  }, [initialData]);
 
   const { mutate, isPending } = useMutation({
     mutationFn: (data: any) =>

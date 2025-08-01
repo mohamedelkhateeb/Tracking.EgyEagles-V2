@@ -11,6 +11,7 @@ import { Edit, MoreHorizontal, Trash } from "lucide-react";
 import { FaRegTrashCan } from "react-icons/fa6";
 import { Customer } from "@/types/customer.model";
 import GenericDialog from "@/Dialogs/delete-dialog";
+import { Link } from "react-router-dom";
 interface CellActionProps {
   data: any;
 }
@@ -32,13 +33,14 @@ export const CellAction: React.FC<CellActionProps> = ({
           <MenubarContent align="end">
             <h1 className="text-md mx-3 my-1 font-bold"> Actions</h1>
             <MenubarSeparator />
-            <div
+            <Link
+              to={`/customers/${data.Id}`}
               className={itemStyle}
               // onClick={() => navigate(`/customers/${data.Id}`)}
             >
               Update Customer
               <Edit size={15} />
-            </div>
+            </Link>
             <div className={itemStyle}>
               <GenericDialog
                 icon={
