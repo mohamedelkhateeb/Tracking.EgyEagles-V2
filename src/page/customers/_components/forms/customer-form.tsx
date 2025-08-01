@@ -11,8 +11,7 @@ export default function CustomerForm({
   initialData: any;
   customer: string;
 }) {
-  
-  const { handleSubmit } = useCustomerForm(initialData, customer);
+  const { handleSubmit, isPending } = useCustomerForm(initialData, customer);
 
   return (
     <form onSubmit={handleSubmit} className="space-y-8">
@@ -33,6 +32,7 @@ export default function CustomerForm({
       {/* <PermissionsView data={data} setData={setData} /> */}
       <div className="flex items-center justify-end">
         <LoadingButton
+          isPending={isPending}
           content="Submit"
           loader="Submitting..."
           style="w-full lg:w-1/2 p-6 text-xl"

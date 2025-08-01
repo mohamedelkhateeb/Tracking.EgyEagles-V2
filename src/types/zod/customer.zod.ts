@@ -9,11 +9,10 @@ export const getCustomerSchema = (t: (key: string) => string) =>
     EmailAddress: z.string().email({ message: t("errors.emailInvalid") }),
     PhoneNumber: z.string().min(1, { message: t("errors.phoneRequired") }),
     CustomerType: z
-      .number({ invalid_type_error: t("errors.customerTypeRequired") })
-      .refine((val) => val === 3 || val === 4, {
-        message: t("errors.customerTypeInvalid"),
-      }),
+      .number({ invalid_type_error: t("errors.customerTypeRequired") }),
+      
     City: z.string().min(1, { message: t("errors.cityRequired") }),
+    Address: z.string().min(1, { message: t("errors.addressRequired") }),
     ZipCode: z.string().min(1, { message: t("errors.zipCodeRequired") }),
     Country: z.string().min(1, { message: t("errors.countryRequired") }),
     IdentityNumber: z

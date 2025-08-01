@@ -81,7 +81,7 @@ export const validatePhoneNumber = (
 export const handlePhoneInputChange = (
   e: React.FormEvent<HTMLInputElement>,
   t: (key: string) => string,
-  setErrMsg: React.Dispatch<React.SetStateAction<string>>
+  setErrMsg: React.Dispatch<React.SetStateAction<string | undefined>>
 ) => {
   const input = e.currentTarget;
   input.value = input.value.replace(/\D/g, "");

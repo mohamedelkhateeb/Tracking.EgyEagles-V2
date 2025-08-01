@@ -8,9 +8,9 @@ import { useAuthContext } from "@/context/auth-provider";
 
 export const useCustomerForm = (
   initialData: Customer,
-  customerType: string | string[]
+  customerType: string | string[] | number
 ) => {
-  const { mutate } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: (data: any) =>
       httpService.post<any>({
         url: `/customers/${customerType}`,
@@ -33,18 +33,20 @@ export const useCustomerForm = (
 
   const customerSchema = getCustomerSchema(t);
   const handleSubmit = (e: any) => {
-    CustomerData.PhoneNumber = "+966" + CustomerData.PhoneNumber;
-    if (customerType === "distributer") {
+    if (CustomerData.PhoneNumber) {
+      CustomerData.PhoneNumber = "+966" + CustomerData.PhoneNumber;
+    }
+    if (customerType == "distributer") {
       CustomerData.CustomerType = 2;
       CustomerData.UpLevelId = user.CustomerId;
     }
     e.preventDefault();
     const result = customerSchema.safeParse({ ...CustomerData, ...UserData });
 
-    // if (!result.success) {
-    //   setErrors(result.error.flatten().fieldErrors);
-    //   return;
-    // }
+    if (!result.success) {
+      setErrors(result.error.flatten().fieldErrors);
+      return;
+    }
 
     // const dataToSubmit = transformForApi(data);
 
@@ -74,5 +76,6 @@ export const useCustomerForm = (
     handleChange,
     setErrors,
     handleSubmit,
+    isPending,
   };
 };

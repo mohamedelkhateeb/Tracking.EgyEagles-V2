@@ -15,8 +15,7 @@ const PhoneNumber = ({
   error?: string;
 }) => {
   const { t } = useTranslation();
-  const [errMsg, setErrMsg] = useState<string>(error || "");
-
+  const [errMsg, setErrMsg] = useState<string | undefined>(error);
   return (
     <>
       <div

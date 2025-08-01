@@ -50,7 +50,7 @@ const CustomerFormInputs = () => {
         <p className=" flex  font-semibold text-lg">
           Phone Number <LuAsterisk className="text-red-500" size={14} />
         </p>
-        <PhoneNumber value={CustomerData?.PhoneNumber}  onChange={(e)=> setCustomerData({...CustomerData, PhoneNumber: e.target.value})}/>
+        <PhoneNumber error={Errors?.PhoneNumber.join(" ")} value={CustomerData?.PhoneNumber}  onChange={(e)=> setCustomerData({...CustomerData, PhoneNumber: e.target.value})}/>
       </div>
       {useParams().customer == "new" && (
         <>

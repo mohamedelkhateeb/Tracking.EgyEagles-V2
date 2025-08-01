@@ -68,12 +68,12 @@ const CustomInput: React.FC<CustomInputProps> = ({
         defaultChecked={defaultChecked}
         className={cn(
           "w-full py-7 text-lg outline-none",
-          errors[name] && "border-red-500"
+          errors[name] && "border-red-500 focus:border-none"
         )}
       />
       {errors && (
         <p className="mr-auto min-w-full text-md text-red-500">
-          {errors[name]?.join("")}
+          {errors[name]?.join("  ")}
         </p>
       )}
     </div>
