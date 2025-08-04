@@ -28,8 +28,10 @@ import {
 } from "@radix-ui/react-icons";
 import {
   ColumnDef,
+  ColumnFiltersState,
   flexRender,
   getCoreRowModel,
+  getFilteredRowModel,
   getPaginationRowModel,
   PaginationState,
   useReactTable,
@@ -42,6 +44,7 @@ import {
 } from "lucide-react";
 import { parseAsInteger, useQueryState } from "nuqs";
 import { Input } from "../ui/input";
+import { useState } from "react";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -85,17 +88,20 @@ export function DataTable<TData, TValue>({
     setCurrentPage(pagination.pageIndex + 1); // converting zero-based index to one-based
     setPageSize(pagination.pageSize);
   };
-
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const table = useReactTable({
     data,
     columns,
     pageCount: pageCount,
     state: {
+      columnFilters,
       pagination: paginationState,
     },
     onPaginationChange: handlePaginationChange,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    onColumnFiltersChange: setColumnFilters,
+    getFilteredRowModel: getFilteredRowModel(),
     manualPagination: true,
     manualFiltering: true,
   });
@@ -104,10 +110,10 @@ export function DataTable<TData, TValue>({
     <div className="space-y-4">
       <div className="flex items-center justify-between p-2 mb-2">
         <Input
-          placeholder="Filter emails..."
-          value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
+          placeholder="Filter"
+          value={(table.getColumn("EMAIL")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
-            table.getColumn("email")?.setFilterValue(event.target.value)
+            table.getColumn("EMAIL")?.setFilterValue(event.target.value)
           }
           className="max-w-sm py-5 text-lg"
         />
@@ -173,7 +179,10 @@ export function DataTable<TData, TValue>({
                   className="h-24 text-center"
                 >
                   <div className="flex justify-center items-center h-[50vh]">
-                    <Loader color="#6b7280" className="h-10 w-10 animate-spin text-xl" />
+                    <Loader
+                      color="#6b7280"
+                      className="h-10 w-10 animate-spin text-xl"
+                    />
                   </div>{" "}
                 </TableCell>
               </TableRow>

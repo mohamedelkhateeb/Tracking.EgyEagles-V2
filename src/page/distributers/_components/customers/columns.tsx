@@ -1,7 +1,5 @@
-'use client';
 import { Checkbox } from '@/components/ui/checkbox';
 import { ColumnDef } from '@tanstack/react-table';
-import { CellAction } from './cell-action';
 import { CustomerData } from '@/lib/store/customer-form/customer-slice';
 
 export const columns: ColumnDef<CustomerData>[] = [
@@ -28,9 +26,9 @@ export const columns: ColumnDef<CustomerData>[] = [
     accessorFn: (row) => row?.Country,
     header: 'COUNTRY',
   },
-  {
-    id: 'actions',
-    header: 'ACTIONS',
-    cell: ({ row }) => <CellAction data={row.original} />,
-  },
+  // {
+  //   id: 'actions',
+  //   header: 'ACTIONS',
+  //   cell: ({ row }) => <CellAction data={row.original} />,
+  // },
 ];

@@ -1,4 +1,3 @@
-"use client";
 import {
   Menubar,
   MenubarContent,
@@ -7,7 +6,7 @@ import {
   MenubarTrigger,
 } from "@/components/ui/menubar";
 import { RiExchange2Line } from "react-icons/ri";
-import { Edit, MoreHorizontal, Trash } from "lucide-react";
+import { Edit, ListCheck, MoreHorizontal, Trash, Users } from "lucide-react";
 import { FaRegTrashCan } from "react-icons/fa6";
 import { Customer } from "@/types/customer.model";
 import GenericDialog from "@/Dialogs/delete-dialog";
@@ -33,11 +32,15 @@ export const CellAction: React.FC<CellActionProps> = ({
           <MenubarContent align="end">
             <h1 className="text-md mx-3 my-1 font-bold"> Actions</h1>
             <MenubarSeparator />
-            <Link
-              to={`/customers/${data.Id}`}
-              className={itemStyle}
-              // onClick={() => navigate(`/customers/${data.Id}`)}
-            >
+            <Link to={`/distributors/${data.Id}/customers`} className={itemStyle}>
+              All Customers
+              <ListCheck size={15} />
+            </Link>
+            <Link to={`/distributors/${data.Id}`} className={itemStyle}>
+              All Users
+              <Users size={15} />
+            </Link>
+            <Link to={`/customers/${data.Id}`} className={itemStyle}>
               Update Customer
               <Edit size={15} />
             </Link>
