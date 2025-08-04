@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import httpService from "@/lib/httpService";
@@ -26,6 +26,7 @@ export const useCustomerForm = ({
 
   const { t } = useTranslation();
   const { user } = useAuthContext();
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     if (initialData) {
@@ -41,16 +42,20 @@ export const useCustomerForm = ({
   const mutation = useMutation({
     mutationFn: (payload: any) =>
       httpService[isCreate ? "post" : "put"]({
-        url: `/customers${mode == "new" ? "" : `/${mode}`}${
-          CustomerData?.CustomerType == "Distributer" ? `/distributer` : ""
-        }`,
+        url: `/customers${
+          mode == "new"
+            ? CustomerData.CustomerType == 5
+              ? "/branch"
+              : ""
+            : `/${mode}`
+        }${CustomerData?.CustomerType == "Distributer" ? `/distributer` : ""}`,
         data: payload,
       }),
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (Errors[e.target.name]) {
-      setErrors((prev) => ({ ...prev, [e.target.name]: undefined }));
+      setErrors((prev: any) => ({ ...prev, [e.target.name]: undefined }));
     }
   };
 
@@ -94,6 +99,8 @@ export const useCustomerForm = ({
     mutation.mutate(payload, {
       onSuccess: () => {
         navigate(mode === "distributer" ? "/distributers" : "/customers");
+        queryClient.invalidateQueries({ queryKey: ["Customers"] });
+
         CustomAlert({
           msg: t("dataUpdatedSuccessfully"),
           type: "success",

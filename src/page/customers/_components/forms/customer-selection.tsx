@@ -36,7 +36,6 @@ const CustomerSelection = ({
   return (
     <SelectField
       onChange={onChange}
-      defaultValue={customerId}
       name={name}
       label={label}
       options={[

@@ -18,6 +18,7 @@ import { ChevronRight } from "lucide-react";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { PiTruckTrailer } from "react-icons/pi";
 import { LiaUsersCogSolid } from "react-icons/lia";
+import { FaCodeBranch } from "react-icons/fa";
 
 export function NavMain() {
   const location = useLocation();
@@ -53,6 +54,14 @@ export function NavMain() {
       href: "/customers",
       icon: LiaUsersCogSolid,
       label: "customers",
+      isActive: false,
+      items: [],
+    },
+    {
+      title: "Manage Branches",
+      href: "/branches",
+      icon: FaCodeBranch,
+      label: "branches",
       isActive: false,
       items: [],
     },

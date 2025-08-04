@@ -11,6 +11,7 @@ export const AUTH_ROUTES = {
 export const PROTECTED_ROUTES = {
   HOME: "/",
   CUSTOMERS: "/customers",
+  BRANCHES: "/branches",
   DISTRIBUTORS: "/distributors",
   DISTRIBUTOR_FORM: "/distributor/:customer",
   CUSTOMERS_FOR_DISTRIBUTOR: "/distributors/:customer/customers",
