@@ -44,7 +44,7 @@ const Asidebar = () => {
             {open && (
               <Link
                 to={`/`}
-                className="hidden md:flex ml-2 items-center gap-2 self-center font-medium"
+                className="hidden md:flex ml-2 items-center gap-2 self-center font-bold text-xl"
               >
                 Tracking
               </Link>
@@ -57,7 +57,6 @@ const Asidebar = () => {
               <Separator />
               <NavMain />
               <Separator />
-              {/* <NavProjects /> */}
             </SidebarGroupContent>
           </SidebarGroup>
         </SidebarContent>

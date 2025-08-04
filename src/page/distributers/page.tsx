@@ -49,7 +49,7 @@ export default function DistributerListingPage() {
             {/* <DataTableSearch searchKey="name" searchQuery={searchQuery} setSearchQuery={setSearchQuery} setPage={setPage} /> */}
             {/* <DataTableResetFilter isFilterActive={isAnyFilterActive} onReset={resetFilters} /> */}
           </div>
-          <DataTable columns={columns} data={data} totalItems={data?.length} isPending={isPending} />
+          <DataTable columns={columns} data={data} totalItems={data?.length} isPending={isPending} fileName="Distributers" />
         </div>
       </div>
     </PageContainer>

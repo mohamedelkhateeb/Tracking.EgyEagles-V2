@@ -99,6 +99,7 @@ export function NavMain() {
               <SidebarMenuItem>
                 <CollapsibleTrigger asChild>
                   <SidebarMenuButton
+                    className="text-base font-semibold"
                     tooltip={item.title}
                     isActive={pathname === item.label}
                   >
@@ -131,6 +132,7 @@ export function NavMain() {
                 asChild
                 tooltip={item.title}
                 isActive={pathname == item.href}
+                className="text-base font-semibold"
               >
                 <Link to={item.href || "/"}>
                   <item.icon />
