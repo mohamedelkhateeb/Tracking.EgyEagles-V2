@@ -1,6 +1,7 @@
 import SelectField from "@/components/Fields/select-field";
 import { useAuthContext } from "@/context/auth-provider";
 import httpService from "@/lib/httpService";
+import { CustomerData } from "@/lib/store/customer-form/customer-slice";
 import { Response } from "@/types/api.type";
 import { useQuery } from "@tanstack/react-query";
 
@@ -24,20 +25,13 @@ const CustomerSelection = ({
   name = "UplevelId",
 }: Props) => {
   const { customerId, user } = useAuthContext();
-  // const { Data = [], isLoading }: { Data: any[]; isLoading: boolean } = useClientPost(endpoint, {
-  //   PageNumber: 1,
-  //   PageSize: 100,
-  // });
-
-  const { data: Data=[] } = useQuery<Response<any[]>>({
+  const { data: Data} = useQuery<Response<CustomerData[]>>({
     queryKey: [endpoint],
     queryFn: () =>
       httpService.get({
         url: endpoint,
       }),
   });
-
-  console.log({ Data });
   
   return (
     <SelectField
@@ -47,7 +41,7 @@ const CustomerSelection = ({
       label={label}
       options={[
         { value: customerId, label: user?.UserName || "" },
-        ...(Data || []).map((d: any) => ({
+        ...(Data?.Data || []).map((d: any) => ({
           value: d?.Id || "",
           label: d?.CustomerName || "",
         })),

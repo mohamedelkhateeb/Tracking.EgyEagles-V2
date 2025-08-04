@@ -60,11 +60,11 @@ const CustomerFormInputs = () => {
             name="CustomerType"
             label="Customer Type"
             options={[
-              { value: "Branch", label: "Branch" },
-              { value: "Company", label: "Company" },
-              { value: "Individual", label: "Individual" },
+              { value: 5, label: "Branch" },
+              { value: 3, label: "Company" },
+              { value: 4, label: "Individual" },
             ]}
-            onChange={handleChange}
+            onChange={(e) => setCustomerData({ ...CustomerData, [e.target.name]: parseInt(e.target.value) })}
             errors={Errors}
             required
             value={CustomerData?.CustomerType}
@@ -73,12 +73,12 @@ const CustomerFormInputs = () => {
             <CustomerSelection
               CustomerId={user?.Id || ""}
               errors={Errors}
-              endpoint={"customers/all-distributers"}
+              endpoint={"/customers/distributers"}
               data={CustomerData}
               placeholder="Select parent customer"
               label="Parent Customer"
               onChange={handleChange}
-              name="UplevelId"
+              name="UpLevelId"
             />
           )}
         </>
@@ -130,6 +130,38 @@ const CustomerFormInputs = () => {
         required
       />
       <InputField
+        required
+        placeholder="Enter commercial record  date"
+        value={
+          CustomerData?.DateOfBirth &&
+          !isNaN(new Date(CustomerData.CommercialRecordIssueDate).getTime())
+            ? new Date(CustomerData.CommercialRecordIssueDate)
+                .toISOString()
+                .split("T")[0]
+            : ""
+        }
+        onChange={handleChange}
+        errors={Errors}
+        name="CommercialRecordIssueDate"
+        label="Commercial Record Date"
+        type="date"
+      />
+      <InputField
+        required
+        placeholder="Enter date of birth"
+        value={
+          CustomerData?.DateOfBirth &&
+          !isNaN(new Date(CustomerData.DateOfBirth).getTime())
+            ? new Date(CustomerData.DateOfBirth).toISOString().split("T")[0]
+            : ""
+        }
+        onChange={handleChange}
+        errors={Errors}
+        name="DateOfBirth"
+        label="Date of Birth"
+        type="date"
+      />
+      <InputField
         value={CustomerData?.Location}
         onChange={handleChange}
         errors={Errors}
@@ -154,38 +186,7 @@ const CustomerFormInputs = () => {
         label="Commercial Record Number"
         placeholder="Enter commercial record number"
       />
-      <InputField
-        required
-        placeholder="Enter commercial record issue date"
-        value={
-          CustomerData?.DateOfBirth &&
-          !isNaN(new Date(CustomerData.CommercialRecordIssueDate).getTime())
-            ? new Date(CustomerData.CommercialRecordIssueDate)
-                .toISOString()
-                .split("T")[0]
-            : ""
-        }
-        onChange={handleChange}
-        errors={Errors}
-        name="CommercialRecordIssueDate"
-        label="Commercial Record Issue Date"
-        type="date"
-      />
-      <InputField
-        required
-        placeholder="Enter date of birth"
-        value={
-          CustomerData?.DateOfBirth &&
-          !isNaN(new Date(CustomerData.DateOfBirth).getTime())
-            ? new Date(CustomerData.DateOfBirth).toISOString().split("T")[0]
-            : ""
-        }
-        onChange={handleChange}
-        errors={Errors}
-        name="DateOfBirth"
-        label="Date of Birth"
-        type="date"
-      />
+
       <InputField
         value={CustomerData?.Comments}
         onChange={handleChange}

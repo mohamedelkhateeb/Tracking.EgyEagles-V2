@@ -1,4 +1,4 @@
-import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import httpService from "@/lib/httpService";
 import CustomerFormInputs from "./customer-inputs";
 import LoadingButton from "@/components/ui/loading-btn";
@@ -16,6 +16,7 @@ export default function CustomerViewForm({
   const navigate = useNavigate();
   let initialData = null;
   if (customerId != "new" && customerId != "distributer") {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     const { data } = useSuspenseQuery<Response<CustomerData>>({
       queryKey: ["customer", customerId],
       queryFn: () => httpService.get({ url: `/customers/${customerId}` }),

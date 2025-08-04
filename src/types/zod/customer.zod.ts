@@ -8,13 +8,20 @@ export const getCustomerSchema = (t: (key: string) => string) =>
       .max(50, { message: t("errors.customerNameMax") }),
     EmailAddress: z.string().email({ message: t("errors.emailInvalid") }),
     PhoneNumber: z.string().min(1, { message: t("errors.phoneRequired") }),
-    CustomerType: z
-      .number({ invalid_type_error: t("errors.customerTypeRequired") }),
-      
+    CustomerType: z.number({
+      invalid_type_error: t("errors.customerTypeRequired"),
+    }),
+
     City: z.string().min(1, { message: t("errors.cityRequired") }),
     Address: z.string().min(1, { message: t("errors.addressRequired") }),
     ZipCode: z.string().min(1, { message: t("errors.zipCodeRequired") }),
     Country: z.string().min(1, { message: t("errors.countryRequired") }),
+    DateOfBirth: z
+      .string()
+      .min(1, { message: t("errors.dateOfBirthRequired") }),
+    CommercialRecordIssueDate: z
+      .string()
+      .min(1, { message: t("errors.CommercialRecordDate") }),
     IdentityNumber: z
       .string()
       .length(10, { message: t("errors.identityLength") })

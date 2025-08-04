@@ -22,7 +22,7 @@ const PhoneNumber = ({
       <div
         dir="ltr"
         className={` flex items-center rounded-lg border border-borderColor bg-white px-3 py-3 shadow-sm ${
-          errMsg ? "border-red-500" : ""
+          errMsg || error ? "border-red-500" : ""
         }`}
       >
         <span className="flex items-center gap-2 border-r-2 pr-2 text-lg xl:text-xl">

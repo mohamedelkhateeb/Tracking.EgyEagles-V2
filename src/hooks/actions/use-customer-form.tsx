@@ -27,7 +27,6 @@ export const useCustomerForm = ({
   const { t } = useTranslation();
   const { user } = useAuthContext();
 
-  // Load initial data on edit
   useEffect(() => {
     if (initialData) {
       setErrors({});
@@ -42,7 +41,7 @@ export const useCustomerForm = ({
   const mutation = useMutation({
     mutationFn: (payload: any) =>
       httpService[isCreate ? "post" : "put"]({
-        url: `/customers/${mode}${
+        url: `/customers${mode == "new" ? "" : `/${mode}`}${
           CustomerData?.CustomerType == "Distributer" ? `/distributer` : ""
         }`,
         data: payload,
@@ -59,11 +58,9 @@ export const useCustomerForm = ({
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log(Errors);
 
     // Normalize phone
-    if (!CustomerData.PhoneNumber.startsWith("+966")) {
-      CustomerData.PhoneNumber = "+966" + CustomerData.PhoneNumber;
-    }
 
     // For Distributer, attach type and parent
     if (isDistributer) {
@@ -80,8 +77,14 @@ export const useCustomerForm = ({
 
       if (!validation.success) {
         setErrors(validation.error.flatten().fieldErrors);
+        console.log(Errors);
+        console.log(CustomerData);
         return;
       }
+    }
+
+    if (!CustomerData.PhoneNumber.startsWith("+966")) {
+      CustomerData.PhoneNumber = "+966" + CustomerData.PhoneNumber;
     }
 
     const payload = isCreate
@@ -89,7 +92,7 @@ export const useCustomerForm = ({
       : CustomerData;
 
     mutation.mutate(payload, {
-      onSuccess: (res) => {
+      onSuccess: () => {
         navigate(mode === "distributer" ? "/distributers" : "/customers");
         CustomAlert({
           msg: t("dataUpdatedSuccessfully"),

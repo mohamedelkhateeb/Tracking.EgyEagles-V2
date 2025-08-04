@@ -21,7 +21,7 @@ interface SelectFieldProps {
   defaultValue?: string | number;
   labelStyle?: string;
 }
-  
+
 const SelectField: React.FC<SelectFieldProps> = ({
   placeholder,
   name,
@@ -36,7 +36,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
 }) => {
   const { t } = useTranslation();
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-3">
       <p className={cn(labelStyle, " font-semibold text-md flex")}>
         {label}
         {required ? (
@@ -52,7 +52,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
         name={name}
         onChange={onChange}
         className={cn(
-          "flex  w-full items-center justify-between shadow-sm border border-input bg-background px-3 py-2 rounded-xl cursor-pointer",
+          "flex  w-full items-center justify-between shadow-sm border bg-background px-3 rounded-md cursor-pointer py-3 text-md outline-none",
           errors[name] && "border-red-500"
         )}
         value={value}
@@ -66,7 +66,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
         ))}
       </select>
       {errors && (
-        <p className="mr-auto min-w-full text-xs text-red-500">
+        <p className="mr-auto min-w-full text-md text-red-500">
           {errors[name]?.join("")}
         </p>
       )}

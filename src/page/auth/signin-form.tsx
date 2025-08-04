@@ -33,10 +33,9 @@ export default function SigninForm() {
     }
     mutate(data, {
       onSuccess: (res) => {
-        navigate("/");
-
-        localStorage.setItem("id", res?.Data?.Id);
         localStorage.setItem("session", res?.Data?.Token);
+        localStorage.setItem("id", res?.Data?.Id);
+        navigate("/");
       },
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       onError: (error: any) => {

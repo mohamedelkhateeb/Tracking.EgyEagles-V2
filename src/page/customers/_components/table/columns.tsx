@@ -1,36 +1,61 @@
-'use client';
 import { Checkbox } from '@/components/ui/checkbox';
 import { ColumnDef } from '@tanstack/react-table';
 import { CellAction } from './cell-action';
-import { User } from '@/types/models/user.model';
+import { CustomerData } from '@/lib/store/customer-form/customer-slice';
+import StatusDialog from '@/Dialogs/StatusDialog';
 
-export const columns: ColumnDef<User>[] = [
+export const columns: ColumnDef<CustomerData>[] = [
   {
-    id: 'select',
-    header: ({ table }) => <Checkbox checked={table.getIsAllPageRowsSelected()} onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)} aria-label="Select all" />,
-    cell: ({ row }) => <Checkbox checked={row.getIsSelected()} onCheckedChange={(value) => row.toggleSelected(!!value)} aria-label="Select row" />,
+    id: "select",
+    header: ({ table }) => (
+      <Checkbox
+        checked={table.getIsAllPageRowsSelected()}
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        aria-label="Select all"
+      />
+    ),
+    cell: ({ row }) => (
+      <Checkbox
+        checked={row.getIsSelected()}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        aria-label="Select row"
+      />
+    ),
     enableSorting: false,
     enableHiding: false,
   },
   {
-    accessorKey: 'CustomerName',
-    header: 'NAME',
+    accessorFn: (row) => row?.CustomerName,
+    header: "NAME",
   },
   {
-    accessorKey: 'EmailAddress',
-    header: 'EMAIL',
+    accessorFn: (row) => row?.EmailAddress,
+    header: "EMAIL",
   },
   {
-    accessorKey: 'IdentityNumber',
-    header: 'IDENTITY NUMBER',
+    accessorFn: (row) => row?.IdentityNumber,
+    header: "IDENTITY NUMBER",
   },
   {
-    accessorKey: 'Country',
-    header: 'COUNTRY',
+    accessorFn: (row) => row?.Country,
+    header: "COUNTRY",
   },
   {
-    id: 'actions',
-    header: 'ACTIONS',
+    header: "STATUS",
+    cell: ({ row }) => (
+      <StatusDialog
+        endpoint={`/customers/${row.original?.Id}/toggle-status`}
+        data={{
+          item: "Customer",
+          placeholder: "Customer",
+        }}
+        row={row}
+      />
+    ),
+  },
+  {
+    id: "actions",
+    header: "ACTIONS",
     cell: ({ row }) => <CellAction data={row.original} />,
   },
 ];

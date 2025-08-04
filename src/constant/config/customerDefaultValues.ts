@@ -7,7 +7,7 @@ export const CUSTOMER_DEFAULT_STATE = {
   CustomerName: '',
   EmailAddress: '',
   PhoneNumber: '',
-  CustomerType: 0,
+  CustomerType: null,
   Address: '',
   City: '',
   ZipCode: '',

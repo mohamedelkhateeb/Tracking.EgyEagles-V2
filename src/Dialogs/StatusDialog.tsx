@@ -11,7 +11,7 @@ import { CustomAlert } from "@/components/ui/custom-alert";
 import LoadingButton from "@/components/ui/loading-btn";
 import httpService from "@/lib/httpService";
 import { AlertDialog, AlertDialogTrigger } from "@radix-ui/react-alert-dialog";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRef } from "react";
 import { RiExchange2Line } from "react-icons/ri";
 
@@ -27,12 +27,15 @@ export interface StatusProps {
 
 const StatusDialog = ({ data, row, endpoint }: StatusProps) => {
   const buttonRef = useRef<HTMLButtonElement | null>(null);
+const queryClient = useQueryClient()
 
   const { mutate, isPending } = useMutation({
     mutationFn: () => httpService.get({ url: endpoint }),
-    onSuccess: (res) => {
-      console.log(res);
+    onSuccess: () => {
       buttonRef.current?.click();
+      queryClient.invalidateQueries();
+      // Invalidate every query with a key that starts with `todos`
+      queryClient.invalidateQueries({ queryKey: ["Customer"] });
       CustomAlert({ msg: "Status Changed Successfully", type: "success" });
     },
     onError: () => {

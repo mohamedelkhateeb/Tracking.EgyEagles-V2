@@ -43,11 +43,13 @@
     "passwordLowercase": "Password must contain at least one lowercase letter",
     "passwordDigit": "Password must contain at least one digit",
     "passwordSpecial": "Password must contain at least one special character",
-    "addressRequired": "Address is required"
+    "addressRequired": "Address is required",
+    "dateOfBirthRequired": "Date of birth is required",
+    "CommercialRecordDate": "Commercial record issue date is required"
   },
   "startsWith05": "The mobile number must be 10 digits if it starts with '05'.",
   "startsWith5": "The mobile number must be 9 digits if it starts with '5'.",
   "invalid": "Invalid mobile number. It must start with '05' or '5'.",
-"dataUpdatedSuccessfully": "Data updated successfully",  
+  "dataUpdatedSuccessfully": "Data updated successfully",
   "somethingWentWrong": "Something went wrong. Please try again later."
 }

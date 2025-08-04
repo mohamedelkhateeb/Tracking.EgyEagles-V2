@@ -1,29 +1,3 @@
-export type Customer = {
-  Id: string;
-  CreatedDate: string;
-  CreatedBy: string;
-  IsActive: boolean;
-  IsDeleted: boolean;
-  CustomerName: string;
-  EmailAddress: string;
-  PhoneNumber: string;
-  CustomerType: number;
-  Address: string;
-  City: string;
-  ZipCode: string;
-  Country: string;
-  Location: string | null;
-  Website: string | null;
-  IdentityNumber: string;
-  CommercialRecordNumber: string | null;
-  CommercialRecordIssueDate: string | null;
-  DateOfBirth: string | null;
-  Comments: string | null;
-  UpLevelId: string;
-  ImageUrl: string | null;
-  ContractNumber: string | null;
-  ContractPath: string | null;
-};
 
 
 export type CustomerCreateDistributerModel = {

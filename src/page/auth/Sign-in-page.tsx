@@ -28,7 +28,7 @@ export default function SigninPage() {
         </div>
 
         <div className="flex h-full items-center justify-center p-4 lg:p-8">
-          <div className="mx-auto w-full max-w-[400px] space-y-6 rounded border px-6 py-10 shadow-2xl lg:border-0 lg:p-0 lg:shadow-none">
+          <div className="mx-auto w-fulls sm:w-[450px] lg:max-w-[400px] space-y-6 rounded border px-6 py-10 shadow-2xl lg:border-0 lg:p-0 lg:shadow-none">
             <img
               src={Logo}
               alt="Car Tracking logo"
