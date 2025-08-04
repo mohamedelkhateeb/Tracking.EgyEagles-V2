@@ -10,7 +10,7 @@ type CustomerData = {
   CustomerName: string;
   EmailAddress: string;
   PhoneNumber: string;
-  CustomerType: number;
+  CustomerType: number | string;
   Address: string;
   City: string;
   ZipCode: string;

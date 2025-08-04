@@ -48,6 +48,6 @@
   "startsWith05": "The mobile number must be 10 digits if it starts with '05'.",
   "startsWith5": "The mobile number must be 9 digits if it starts with '5'.",
   "invalid": "Invalid mobile number. It must start with '05' or '5'.",
-  "customerSuccess": "Customer created successfully.",
+"dataUpdatedSuccessfully": "Data updated successfully",  
   "somethingWentWrong": "Something went wrong. Please try again later."
 }

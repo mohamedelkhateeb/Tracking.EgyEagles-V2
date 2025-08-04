@@ -6,13 +6,13 @@ import { handlePhoneInputChange } from "@/utils/input-validations";
 import { useState } from "react";
 
 const PhoneNumber = ({
-  value,
   onChange,
   error,
+  defaultValue,
 }: {
-  value?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   error?: string;
+  defaultValue?: string;
 }) => {
   const { t } = useTranslation();
   const [errMsg, setErrMsg] = useState<string>(error || "");
@@ -21,7 +21,7 @@ const PhoneNumber = ({
     <>
       <div
         dir="ltr"
-        className={` flex items-center rounded-lg border border-borderColor bg-white px-6 py-3 shadow-sm ${
+        className={` flex items-center rounded-lg border border-borderColor bg-white px-3 py-3 shadow-sm ${
           errMsg ? "border-red-500" : ""
         }`}
       >
@@ -30,7 +30,8 @@ const PhoneNumber = ({
           +966
         </span>
         <Input
-          value={value}
+          defaultValue={defaultValue}
+          // value={defaultValue}
           className={cn(
             "border-0 text-lg shadow-none outline-none focus-visible:ring-0 focus-visible:ring-offset-0 lg:text-lg"
           )}

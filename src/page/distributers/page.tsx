@@ -27,8 +27,8 @@ export default function DistributerListingPage() {
       <div className="space-y-4">
         <div className="flex items-start justify-between">
           <Heading
-            title={`Distributers (${data.length})`}
-            description="Find and Manage Your distributers here with advanced capabilities. "
+            title={`Distributors (${data.length})`}
+            description="Find and Manage Your distributors here with advanced capabilities. "
           />
           <div className="flex space-x-2">
             <Link

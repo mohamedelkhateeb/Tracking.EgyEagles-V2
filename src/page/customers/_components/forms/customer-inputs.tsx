@@ -21,8 +21,6 @@ const CustomerFormInputs = () => {
     setErrors({ ...Errors, [e.target.name]: undefined });
   };
 
-
-
   return (
     <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
       <input type="hidden" value={customerId} name="UpLevelId" />
@@ -49,7 +47,11 @@ const CustomerFormInputs = () => {
         <p className=" flex  font-semibold text-lg">
           Phone Number <LuAsterisk className="text-red-500" size={14} />
         </p>
-        <PhoneNumber error={Errors?.PhoneNumber?.join(" ")} value={CustomerData?.PhoneNumber}  onChange={handleChange}/>
+        <PhoneNumber
+          error={Errors?.PhoneNumber?.join(" ")}
+          defaultValue={CustomerData?.PhoneNumber.slice(4)}
+          onChange={handleChange}
+        />
       </div>
       {useParams().customer == "new" && (
         <>
@@ -153,8 +155,16 @@ const CustomerFormInputs = () => {
         placeholder="Enter commercial record number"
       />
       <InputField
+        required
         placeholder="Enter commercial record issue date"
-        value={CustomerData?.CommercialRecordIssueDate}
+        value={
+          CustomerData?.DateOfBirth &&
+          !isNaN(new Date(CustomerData.CommercialRecordIssueDate).getTime())
+            ? new Date(CustomerData.CommercialRecordIssueDate)
+                .toISOString()
+                .split("T")[0]
+            : ""
+        }
         onChange={handleChange}
         errors={Errors}
         name="CommercialRecordIssueDate"
@@ -162,8 +172,14 @@ const CustomerFormInputs = () => {
         type="date"
       />
       <InputField
+        required
         placeholder="Enter date of birth"
-        value={CustomerData?.DateOfBirth}
+        value={
+          CustomerData?.DateOfBirth &&
+          !isNaN(new Date(CustomerData.DateOfBirth).getTime())
+            ? new Date(CustomerData.DateOfBirth).toISOString().split("T")[0]
+            : ""
+        }
         onChange={handleChange}
         errors={Errors}
         name="DateOfBirth"

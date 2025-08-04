@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import httpService from "@/lib/httpService";
 import CustomerFormInputs from "./customer-inputs";
 import LoadingButton from "@/components/ui/loading-btn";
@@ -11,15 +11,16 @@ import { useNavigate } from "react-router-dom";
 export default function CustomerViewForm({
   customerId,
 }: {
-  customerId: string;
+  customerId:"distributer" | "new" | string;
 }) {
   const navigate = useNavigate();
   let initialData = null;
-  const { data } = useQuery<Response<CustomerData>>({
-    queryKey: ["customer", customerId],
-    queryFn: () => httpService.get({ url: `/customers/${customerId}` }),
-  });
   if (customerId != "new" && customerId != "distributer") {
+    const { data } = useSuspenseQuery<Response<CustomerData>>({
+      queryKey: ["customer", customerId],
+      queryFn: () => httpService.get({ url: `/customers/${customerId}` }),
+      staleTime: 0,
+    });
     if (data) {
       initialData = data?.Data;
     } else {
@@ -28,8 +29,7 @@ export default function CustomerViewForm({
   }
   const { handleSubmit, isPending } = useCustomerForm({
     initialData,
-    mode:
-      customerId != "new" && customerId != "distributer" ? "edit" : customerId,
+    mode: customerId,
   });
 
   return (

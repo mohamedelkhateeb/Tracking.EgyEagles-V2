@@ -7,8 +7,9 @@ import { CustomerData } from "@/lib/store/customer-form/customer-slice";
 import useCustomerFormStore from "@/lib/store/customer-form/use-customer-form";
 import { useAuthContext } from "@/context/auth-provider";
 import { CustomAlert } from "@/components/ui/custom-alert";
+import { useNavigate } from "react-router-dom";
 
-type Mode = "new" | "distributer" | "edit";
+type Mode = "new" | "distributer" | string;
 
 interface UseCustomerFormProps {
   initialData: CustomerData | null;
@@ -21,6 +22,7 @@ export const useCustomerForm = ({
 }: UseCustomerFormProps) => {
   const { CustomerData, UserData, Errors, setErrors, setCustomerData } =
     useCustomerFormStore((state) => state);
+  const navigate = useNavigate();
 
   const { t } = useTranslation();
   const { user } = useAuthContext();
@@ -40,7 +42,9 @@ export const useCustomerForm = ({
   const mutation = useMutation({
     mutationFn: (payload: any) =>
       httpService[isCreate ? "post" : "put"]({
-        url: `/customers/${mode}`,
+        url: `/customers/${mode}${
+          CustomerData?.CustomerType == "Distributer" ? `/distributer` : ""
+        }`,
         data: payload,
       }),
   });
@@ -86,15 +90,13 @@ export const useCustomerForm = ({
 
     mutation.mutate(payload, {
       onSuccess: (res) => {
-        console.log({ res });
-
+        navigate(mode === "distributer" ? "/distributers" : "/customers");
         CustomAlert({
-          msg: t("customerSuccess"),
+          msg: t("dataUpdatedSuccessfully"),
           type: "success",
         });
       },
       onError: (error: any) => {
-        console.log({ error });
         CustomAlert({
           msg: error?.response?.data?.Message || t("somethingWentWrong"),
           type: "error",
