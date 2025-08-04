@@ -1,10 +1,10 @@
 import useAuth from "@/hooks/api/use-auth";
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 
 const AuthRoute = () => {
     const user = useAuth();
 
-  console.log({ user });
+  if (user) return <Navigate to="/" replace />;
   
   return <Outlet />;
 };

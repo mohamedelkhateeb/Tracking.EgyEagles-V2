@@ -6,6 +6,7 @@ import "./index.css";
 import App from "./App.tsx";
 import QueryProvider from "./context/query-provider.tsx";
 import { QueryLoadingBoundary } from "./context/QueryLoadingBoundary.tsx";
+import { ToastContainer } from "react-toastify";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -13,6 +14,7 @@ createRoot(document.getElementById("root")!).render(
       <NuqsAdapter>
         <QueryLoadingBoundary>
           <App />
+          <ToastContainer />
         </QueryLoadingBoundary>
       </NuqsAdapter>
     </QueryProvider>

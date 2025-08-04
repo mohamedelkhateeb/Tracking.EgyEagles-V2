@@ -7,13 +7,13 @@ export const CustomAlert = ({
   msg: string;
   type?: "success" | "error";
 }) => {
-  const dir =
-    typeof window !== "undefined"
-      ? document?.documentElement?.dir || "ltr"
-      : "ltr";
+  // const dir =
+  //   typeof window !== "undefined"
+  //     ? document?.documentElement?.dir || "ltr"
+  //     : "ltr";
 
   const commonOptions: ToastOptions = {
-    position: dir === "ltr" ? "top-left" : "top-right",
+    position: "top-right",
     autoClose: 5000,
     hideProgressBar: false,
     closeOnClick: false,

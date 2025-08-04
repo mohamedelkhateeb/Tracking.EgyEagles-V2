@@ -1,4 +1,3 @@
-import { notFound } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import httpService from "@/lib/httpService";
 import CustomerFormInputs from "./customer-inputs";
@@ -7,7 +6,6 @@ import UserFormInputs from "@/page/users/forms/user-form-inputs";
 import { Card } from "@/components/ui/card";
 import { useCustomerForm } from "@/hooks/actions/use-customer-form";
 import { Response } from "@/types/api.type";
-import { Customer } from "@/types/customer.model";
 import { CustomerData } from "@/lib/store/customer-form/customer-slice";
 import { useNavigate } from "react-router-dom";
 export default function CustomerViewForm({
@@ -17,19 +15,22 @@ export default function CustomerViewForm({
 }) {
   const navigate = useNavigate();
   let initialData = null;
+  const { data } = useQuery<Response<CustomerData>>({
+    queryKey: ["customer", customerId],
+    queryFn: () => httpService.get({ url: `/customers/${customerId}` }),
+  });
   if (customerId != "new" && customerId != "distributer") {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const { data } = useQuery<Response<CustomerData>>({
-      queryKey: ["customer", customerId],
-      queryFn: () => httpService.get({ url: `/customers/${customerId}` }),
-    });
     if (data) {
       initialData = data?.Data;
     } else {
       navigate("/distributers");
     }
   }
-  const { handleSubmit, isPending } = useCustomerForm(initialData, customerId);
+  const { handleSubmit, isPending } = useCustomerForm({
+    initialData,
+    mode:
+      customerId != "new" && customerId != "distributer" ? "edit" : customerId,
+  });
 
   return (
     <form onSubmit={handleSubmit} className="space-y-8">

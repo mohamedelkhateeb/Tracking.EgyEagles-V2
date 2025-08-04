@@ -1,92 +1,110 @@
-import { Customer } from "@/types/customer.model";
 import { useMutation } from "@tanstack/react-query";
-import httpService from "@/lib/httpService";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import httpService from "@/lib/httpService";
 import { getCustomerSchema } from "@/types/zod/customer.zod";
+import { CustomerData } from "@/lib/store/customer-form/customer-slice";
 import useCustomerFormStore from "@/lib/store/customer-form/use-customer-form";
 import { useAuthContext } from "@/context/auth-provider";
 import { CustomAlert } from "@/components/ui/custom-alert";
-import { useEffect } from "react";
-import { CustomerData } from "@/lib/store/customer-form/customer-slice";
 
-export const useCustomerForm = (
-  initialData: CustomerData | null,
-  customerType: string | string[] | number
-) => {
+type Mode = "new" | "distributer" | "edit";
+
+interface UseCustomerFormProps {
+  initialData: CustomerData | null;
+  mode: Mode;
+}
+
+export const useCustomerForm = ({
+  initialData,
+  mode,
+}: UseCustomerFormProps) => {
   const { CustomerData, UserData, Errors, setErrors, setCustomerData } =
     useCustomerFormStore((state) => state);
 
-  useEffect(() => {
-    if (initialData) {
-      setErrors({} as any);
-      setCustomerData(initialData);
-    }
-  }, [initialData]);
-
-  const { mutate, isPending } = useMutation({
-    mutationFn: (data: any) =>
-      httpService.post<any>({
-        url: `/customers/${customerType}`,
-        data: data,
-      }),
-  });
+  const { t } = useTranslation();
   const { user } = useAuthContext();
 
-  const handleChange = (e: any) => {
+  // Load initial data on edit
+  useEffect(() => {
+    if (initialData) {
+      setErrors({});
+      setCustomerData(initialData);
+    }
+  }, [initialData, setCustomerData, setErrors]);
+
+  const isCreate = mode === "new" || mode === "distributer";
+  const isDistributer = mode === "distributer";
+
+  // Mutation for create or update
+  const mutation = useMutation({
+    mutationFn: (payload: any) =>
+      httpService[isCreate ? "post" : "put"]({
+        url: `/customers/${mode}`,
+        data: payload,
+      }),
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (Errors[e.target.name]) {
-      setErrors((prev: any) => ({ ...prev, [e.target.name]: undefined }));
+      setErrors((prev) => ({ ...prev, [e.target.name]: undefined }));
     }
   };
 
-  const { t } = useTranslation();
-
   const customerSchema = getCustomerSchema(t);
-  const handleSubmit = (e: any) => {
-    if (CustomerData.PhoneNumber) {
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    // Normalize phone
+    if (!CustomerData.PhoneNumber.startsWith("+966")) {
       CustomerData.PhoneNumber = "+966" + CustomerData.PhoneNumber;
     }
-    if (customerType == "distributer") {
+
+    // For Distributer, attach type and parent
+    if (isDistributer) {
       CustomerData.CustomerType = 2;
       CustomerData.UpLevelId = user.CustomerId;
     }
-    e.preventDefault();
-    const result = customerSchema.safeParse({ ...CustomerData, ...UserData });
 
-    if (!result.success) {
-      setErrors(result.error.flatten().fieldErrors);
-      return;
+    // Run Zod validation for create only
+    if (isCreate) {
+      const validation = customerSchema.safeParse({
+        ...CustomerData,
+        ...UserData,
+      });
+
+      if (!validation.success) {
+        setErrors(validation.error.flatten().fieldErrors);
+        return;
+      }
     }
 
-    // const dataToSubmit = transformForApi(data);
+    const payload = isCreate
+      ? { Customer: CustomerData, Admin: UserData }
+      : CustomerData;
 
-    mutate(
-      { Customer: CustomerData, Admin: UserData },
-      {
-        onSuccess: (res) => {
-          CustomAlert({
-            msg: "Customer created successfully",
-            type: "success",
-          });
-        },
-        onError: (error: any) => {
-          console.log(error);
-          CustomAlert({
-            msg: "Something went wrong, please try again later",
-            type: "error",
-          });
-        },
-      }
-    );
+    mutation.mutate(payload, {
+      onSuccess: (res) => {
+        console.log({ res });
 
-    // if (response.Success) {
-    //   toast.success('Customer created successfully');
-    //   router.push('/customers');
-    // } else {
-    //   toast.error(response.Message || 'Something went wrong, please try again later');
-    // }
+        CustomAlert({
+          msg: t("customerSuccess"),
+          type: "success",
+        });
+      },
+      onError: (error: any) => {
+        console.log({ error });
+        CustomAlert({
+          msg: error?.response?.data?.Message || t("somethingWentWrong"),
+          type: "error",
+        });
+      },
+    });
   };
+
   return {
-    isPending,
+    isPending: mutation.isPending,
     Errors,
     handleChange,
     setErrors,
