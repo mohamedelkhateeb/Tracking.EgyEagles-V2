@@ -7,7 +7,6 @@ import { CustomerData } from "@/lib/store/customer-form/customer-slice";
 import useCustomerFormStore from "@/lib/store/customer-form/use-customer-form";
 import { useAuthContext } from "@/context/auth-provider";
 import { CustomAlert } from "@/components/ui/custom-alert";
-import { useNavigate } from "react-router-dom";
 
 type Mode = "new" | "distributer" | string;
 
@@ -22,7 +21,6 @@ export const useCustomerForm = ({
 }: UseCustomerFormProps) => {
   const { CustomerData, UserData, Errors, setErrors, setCustomerData } =
     useCustomerFormStore((state) => state);
-  const navigate = useNavigate();
 
   const { t } = useTranslation();
   const { user } = useAuthContext();
@@ -98,9 +96,7 @@ export const useCustomerForm = ({
 
     mutation.mutate(payload, {
       onSuccess: () => {
-        navigate(mode === "distributer" ? "/distributers" : "/customers");
         queryClient.invalidateQueries({ queryKey: ["Customers"] });
-
         CustomAlert({
           msg: t("dataUpdatedSuccessfully"),
           type: "success",

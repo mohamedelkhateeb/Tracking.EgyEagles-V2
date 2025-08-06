@@ -2,15 +2,13 @@ import {
   Menubar,
   MenubarContent,
   MenubarMenu,
-  MenubarSeparator,
   MenubarTrigger,
 } from "@/components/ui/menubar";
-import { RiExchange2Line } from "react-icons/ri";
-import { Edit, ListCheck, MoreHorizontal, Trash, Users } from "lucide-react";
+import { Edit, MoreHorizontal, Trash } from "lucide-react";
 import { FaRegTrashCan } from "react-icons/fa6";
-import { Customer } from "@/types/customer.model";
 import GenericDialog from "@/Dialogs/delete-dialog";
 import { Link } from "react-router-dom";
+import { CustomerData } from "@/lib/store/customer-form/customer-slice";
 interface CellActionProps {
   data: any;
 }
@@ -18,7 +16,7 @@ interface CellActionProps {
 export const CellAction: React.FC<CellActionProps> = ({
   data,
 }: {
-  data: Customer;
+  data: CustomerData;
 }) => {
   const itemStyle =
     "relative flex gap-5 cursor-pointer select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none hover:bg-accent justify-between";
@@ -30,16 +28,6 @@ export const CellAction: React.FC<CellActionProps> = ({
             <MoreHorizontal className="h-4 w-4" />
           </MenubarTrigger>
           <MenubarContent align="end">
-            <h1 className="text-md mx-3 my-1 font-bold"> Actions</h1>
-            <MenubarSeparator />
-            <Link to={`/distributors/${data.Id}/customers`} className={itemStyle}>
-              All Customers
-              <ListCheck size={15} />
-            </Link>
-            <Link to={`/distributors/${data.Id}`} className={itemStyle}>
-              All Users
-              <Users size={15} />
-            </Link>
             <Link to={`/customers/${data.Id}`} className={itemStyle}>
               Update Customer
               <Edit size={15} />
@@ -65,28 +53,6 @@ export const CellAction: React.FC<CellActionProps> = ({
                 submitStyle="bg-red-600 hover:bg-red-700"
               />
               <Trash size={20} />
-            </div>
-            <div className={itemStyle}>
-              <GenericDialog
-                icon={
-                  <RiExchange2Line
-                    size={40}
-                    className="flex justify-center rounded-md bg-green-200 px-2 py-2 text-sm text-green-500 hover:bg-green-200 hover:text-green-600"
-                  />
-                }
-                trigger="Change Status"
-                submitText="Change"
-                btnLoader="Changing..."
-                asyncAction={async () =>
-                  await new Promise((resolve) => setTimeout(resolve, 1000))
-                }
-                data={data}
-                title="Change Status?"
-                description={`Are you sure you want to Change Status (${data?.CustomerName})  ? This action cannot be undone.`}
-                item="Customer"
-                submitStyle=""
-              />
-              <RiExchange2Line size={20} />
             </div>
           </MenubarContent>
         </MenubarMenu>

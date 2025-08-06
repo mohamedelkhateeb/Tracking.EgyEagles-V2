@@ -1,13 +1,17 @@
 import InputField from "@/components/Fields/input-field";
 import SelectField from "@/components/Fields/select-field";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import CustomerSelection from "./customer-selection";
 import { useAuthContext } from "@/context/auth-provider";
 import useCustomerFormStore from "@/lib/store/customer-form/use-customer-form";
 import PhoneNumber from "@/components/global/phone-number";
 import { LuAsterisk } from "react-icons/lu";
+import { useEffect } from "react";
 
 const CustomerFormInputs = () => {
+  const [upLevel] = useSearchParams();
+
+  console.log(upLevel);
   const { customerId, user } = useAuthContext();
   const { CustomerData, setCustomerData, Errors, setErrors } =
     useCustomerFormStore((state) => state);
@@ -20,7 +24,17 @@ const CustomerFormInputs = () => {
     setCustomerData({ ...CustomerData, [e.target.name]: e.target.value });
     setErrors({ ...Errors, [e.target.name]: undefined });
   };
+  useEffect(() => {
+    if (upLevel.get("upLevel")) {
+      useCustomerFormStore.getState().setCustomerData({
+        ...CustomerData,
+        UpLevelId: upLevel?.get("upLevel") || "",
+      });
+    }
+  } ,[]);
 
+
+    
   return (
     <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
       <input type="hidden" value={customerId} name="UpLevelId" />
@@ -64,14 +78,19 @@ const CustomerFormInputs = () => {
               { value: 3, label: "Company" },
               { value: 4, label: "Individual" },
             ]}
-            onChange={(e) => setCustomerData({ ...CustomerData, [e.target.name]: parseInt(e.target.value) })}
+            onChange={(e) =>
+              setCustomerData({
+                ...CustomerData,
+                [e.target.name]: parseInt(e.target.value),
+              })
+            }
             errors={Errors}
             required
             value={CustomerData?.CustomerType}
           />
-          {user?.UserType == 1 && (
+          {user?.UserType == 1 && !upLevel?.get("upLevel") && (
             <CustomerSelection
-              CustomerId={user?.Id || ""}
+              CustomerId={CustomerData?.UpLevelId}
               errors={Errors}
               endpoint={"/customers/distributers"}
               data={CustomerData}

@@ -3,11 +3,14 @@ import { Heading } from "@/components/global/Heading";
 import { Separator } from "@/components/ui/separator";
 import { useQuery } from "@tanstack/react-query";
 import httpService from "@/lib/httpService";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Response } from "@/types/api.type";
 import { CustomerData } from "@/lib/store/customer-form/customer-slice";
 import { DataTable } from "@/components/table/data-table";
 import { columns } from "./columns";
+import { cn } from "@/lib/utils";
+import { buttonVariants } from "@/components/ui/button";
+import { Plus } from "lucide-react";
 
 export default function AllCustomersForDistributerPage() {
   const id = useParams().customer;
@@ -18,9 +21,6 @@ export default function AllCustomersForDistributerPage() {
         url: `/customers?CustomerId=${id}`,
       }),
   });
-
-  console.log(distributers);
-
   const data: CustomerData[] = distributers?.Data || [];
 
   return (
@@ -29,8 +29,20 @@ export default function AllCustomersForDistributerPage() {
         <div className="flex items-start justify-between">
           <Heading
             title={`Customers (${data.length})`}
-            description="Find and Manage Your distributers here with advanced capabilities. "
+            description="Find and Manage Your Customers here with advanced capabilities. "
           />
+          <div className="flex space-x-2">
+            <Link
+              to={"/customers/new?upLevel=" + id}
+              className={cn(
+                buttonVariants({ variant: "default" }),
+                "flex gap-2"
+              )}
+            >
+              <Plus className="h-4 w-4" />
+              Add New
+            </Link>
+          </div>
         </div>
         <Separator />
         <div className="space-y-4">
