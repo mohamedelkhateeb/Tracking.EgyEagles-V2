@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 import { Response } from "@/types/api.type";
 import { CustomerData } from "@/lib/store/customer-form/customer-slice";
 import { DataTable } from "@/components/table/data-table";
-import { columns } from "./_components/table/columns";
+import { columns } from "../table/columns";
 
 export default function DistributerListingPage() {
   const { data: distributers, isPending } = useQuery<Response<CustomerData[]>>({

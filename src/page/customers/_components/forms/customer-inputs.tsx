@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import InputField from "@/components/Fields/input-field";
 import SelectField from "@/components/Fields/select-field";
 import { useParams, useSearchParams } from "react-router-dom";
@@ -9,9 +10,7 @@ import { LuAsterisk } from "react-icons/lu";
 import { useEffect } from "react";
 
 const CustomerFormInputs = () => {
-  const [upLevel] = useSearchParams();
-
-  console.log(upLevel);
+  const [upLevel] = useSearchParams()
   const { customerId, user } = useAuthContext();
   const { CustomerData, setCustomerData, Errors, setErrors } =
     useCustomerFormStore((state) => state);
@@ -86,11 +85,11 @@ const CustomerFormInputs = () => {
             }
             errors={Errors}
             required
-            value={CustomerData?.CustomerType}
+            value={CustomerData?.CustomerType || ""}
           />
           {user?.UserType == 1 && !upLevel?.get("upLevel") && (
             <CustomerSelection
-              CustomerId={CustomerData?.UpLevelId}
+              CustomerId={CustomerData?.UpLevelId || ""}
               errors={Errors}
               endpoint={"/customers/distributers"}
               data={CustomerData}

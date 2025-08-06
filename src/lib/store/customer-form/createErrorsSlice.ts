@@ -11,7 +11,7 @@ const initialState = {};
 
 const createErrorsSlice: StateCreator<ErrorsSlice> = (set) => ({
   Errors: initialState,
-  setErrors: (data) => set((state) => ({ Errors: data })),
+  setErrors: (data) => set(() => ({ Errors: data })),
 });
 
 export default createErrorsSlice;

@@ -1,7 +1,7 @@
 import InputField from "@/components/Fields/input-field";
-import { cn } from "@/lib/utils";
-import Saudi from "@/components/svgs/saudi-flag";
-import { Input } from "@/components/ui/input";
+// import { cn } from "@/lib/utils";
+// import Saudi from "@/components/svgs/saudi-flag";
+// import { Input } from "@/components/ui/input";
 import SelectField from "@/components/Fields/select-field";
 import { useAuthContext } from "@/context/auth-provider";
 import { RoleType } from "@/types/api.type";
@@ -10,13 +10,13 @@ import useCustomerFormStore from "@/lib/store/customer-form/use-customer-form";
 const UserFormInputs = ({
   roles,
   userId,
-  unRenderedFields,
+  // unRenderedFields,
 }: {
   roles?: RoleType[];
   userId?: string;
   unRenderedFields?: string[];
 }) => {
-  const { customerId, user } = useAuthContext();
+  const { customerId } = useAuthContext();
   const { Errors, setErrors, UserData, setUserData } = useCustomerFormStore(
     (state) => state
   );
@@ -86,7 +86,7 @@ const UserFormInputs = ({
           required
         />
       )}
-      {!unRenderedFields?.includes("PhoneNumber") && (
+      {/* {!unRenderedFields?.includes("PhoneNumber") && (
         <div>
           <p className="mb-2 text-sm font-medium">
             Phone Number <span className="text-red-500">*</span>{" "}
@@ -111,7 +111,7 @@ const UserFormInputs = ({
             />
           </div>
         </div>
-      )}
+      )} */}
       <InputField
         onChange={handleChange}
         errors={Errors}

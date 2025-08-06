@@ -2,12 +2,12 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import httpService from "@/lib/httpService";
 import CustomerFormInputs from "./customer-inputs";
 import LoadingButton from "@/components/ui/loading-btn";
-import UserFormInputs from "@/page/users/forms/user-form-inputs";
 import { Card } from "@/components/ui/card";
 import { useCustomerForm } from "@/hooks/actions/use-customer-form";
 import { Response } from "@/types/api.type";
 import { CustomerData } from "@/lib/store/customer-form/customer-slice";
 import { useNavigate } from "react-router-dom";
+import UserFormInputs from "./user-form-inputs";
 export default function CustomerViewForm({
   customerId,
 }: {

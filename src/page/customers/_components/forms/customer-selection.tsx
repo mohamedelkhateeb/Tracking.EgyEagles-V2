@@ -35,6 +35,7 @@ const CustomerSelection = ({
   
   return (
     <SelectField
+      
       onChange={onChange}
       name={name}
       label={label}

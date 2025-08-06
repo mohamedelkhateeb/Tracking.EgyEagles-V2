@@ -12,7 +12,7 @@ interface PopoverProps {
   triggerStyle?: string;
 }
 
-export default function CustomPopover({ children, trigger, description, title, defaultOpen, style, dataOpen, triggerStyle }: PopoverProps) {
+export default function CustomPopover({ children, trigger, description, title, style }: PopoverProps) {
   return (
     <Dialog>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
